@@ -1,0 +1,17 @@
+.table {
+    display: flex;
+
+    &__column {
+        margin-bottom: 1em;
+        width: 100%;
+        display: inline-block;
+    }
+    
+    &__row {
+        height: 3em;
+        margin: auto;
+        width: 100%;
+        align-items: center;
+        display: flex;
+    }
+}

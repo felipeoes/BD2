@@ -1,0 +1,49 @@
+.pressing {
+    transition: all .2s;
+    box-shadow: 0 .2rem 2rem $color-shadow-1;
+    &:hover{
+        transform: translateY(-.5rem);   
+        box-shadow: 0 .6rem 2rem $color-shadow-1;
+    }
+    &:active{
+        transform: translateY(-.2rem);
+        box-shadow: 0 .3rem 2rem $color-shadow-1;
+    }
+}
+
+
+.animacaoEntrada{
+    -webkit-animation: fromLeft .5s ease-out;
+    animation: fromLeft .5s ease-out;
+    animation-fill-mode: backwards;
+}
+
+@-webkit-keyframes fromLeft{
+		
+    0% {
+        transform: translateX(-100px);
+    }
+
+    80% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+/* coloco o que ocorre em cada etapa (%) da animacao */
+@keyframes fromLeft{
+		
+    0% {
+        transform: translateX(-100px);
+    }
+
+    80% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}

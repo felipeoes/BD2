@@ -1,0 +1,32 @@
+.navigation {
+    width: 10.5rem;
+    height: 100vh;
+    background-color: $color--secondary;
+    position: fixed;
+    display: inline-block;
+    left: 0;
+    top: 0;
+    border: .2rem solid black;
+    &__button{
+        height: 10.5rem;
+        width: 100%;        
+        border: .2rem solid black;
+        background-color: $color--secondary;
+        background-position: center;  
+        background-repeat: no-repeat;
+        resize: both;
+        &--home{
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(255,255,255,.4)), url("../images/home.svg");
+        }
+        &--input{
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(255,255,255,.4)), url("../images/input.svg");
+        }
+        &--table{
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(255,255,255,.4)), url("../images/table.svg");
+        }
+        &--graph{
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(255,255,255,.4)), url("../images/graph.svg");
+        }
+    }
+
+}

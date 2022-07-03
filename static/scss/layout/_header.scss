@@ -1,0 +1,19 @@
+.section__group{
+    width: 40%;
+    background-color: $color--tertiary;
+    padding: 2rem;
+
+    &--names{
+        font-size: $text-size-default;
+        font-weight: 800;
+    }
+};
+
+.page{
+    &__title{
+        font-size: $text-size-section-title;
+    };
+    &__description{
+        font-size: $text-size-big;
+    };
+};

@@ -319,3 +319,7 @@ modules.xml
 .azure
 .azure/
 node_modules
+
+MUSEU_PROJ/.env
+MUSEU_PROJ/teste.txt
+.DS_Store
