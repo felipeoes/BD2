@@ -1,0 +1,18 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html{
+    font-size: 62.5%;
+    padding: 1rem;
+}
+
+body{
+    box-sizing: border-box;
+    // background-color: #292525;
+    background-color: $color--primary;
+}
