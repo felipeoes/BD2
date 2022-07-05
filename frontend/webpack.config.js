@@ -2,12 +2,11 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    'assets/js/Controller': './assets/containers/Controller.js',
-    'assets/js/Base': './assets/containers/Base.js',
+    'Controller': './src/Controller.js',
     },
   output: {
-    filename: '[name]-bundle.js',  // output bundle file name
-    path: path.resolve(__dirname, './static'),  // path to our Django static directory
+    filename: '[name]-bundle.js',  // output bundle file name    
+    path: path.resolve('src', './bundle'),  // path to our Django static directory
   },
   module: {
     rules: [
