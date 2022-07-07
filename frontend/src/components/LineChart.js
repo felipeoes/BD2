@@ -1,13 +1,14 @@
-import { useD3 } from '../../assets/hooks/useD3';
+import { useD3 } from './services/hooks/useD3';
 import React from 'react';
 import * as d3 from 'd3';
 
 export const LineChart = function (dataInput) {
     let [data,eixoX,eixoY] = dataInput.data;
     
-    const margin = {top: 10, right: 30, bottom: 30, left: 60};
-    const width = 460 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    // const margin = {top: 10, right: 30, bottom: 30, left: 60};
+    const padding = {top: 10, right: 30, bottom: 0, left: 30};
+    const width = 500 - padding.left - padding.right;
+    const height = 450 - padding.top - padding.bottom;
 
 
     data = data.map(
@@ -51,11 +52,10 @@ export const LineChart = function (dataInput) {
             svg.select('.path-line')
                 .datum(data)
                 .attr("fill", "none")
-                .attr("stroke", "steelblue")
                 .attr("stroke-width", 1.5)
                 .attr(
                     "d",
-                    d3.line()
+                    d3.line()                    
                         .x(
                             function(d) {                                
                                 // console.log(x(d[eixoX]));
@@ -79,11 +79,15 @@ export const LineChart = function (dataInput) {
         <svg
           ref={ref}
           style={{
-            height: height + margin.top + margin.bottom,
-            width: width + margin.left + margin.right,
-            marginRight: "0px",
-            marginLeft: "0px",
+            // height: height + margin.top + margin.bottom,
+            height: '100%',
+            width: '100%',
+            paddingRight: padding.right,
+            paddingLeft: padding.left,
+            paddingTop: padding.top,
+            paddingBottom: padding.bottom,
           }}
+          className='linechart'
         >
           <g className="plot-area" />
           <g className="x-axis" />

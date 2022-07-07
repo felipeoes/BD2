@@ -1,0 +1,81 @@
+.columnsHistogram{
+    fill:rgb(88,123,83);
+}
+
+.path-line{
+    stroke: rgb(88,123,83);
+    stroke-width: 3;
+}
+
+.domain{
+    stroke-width: 3;
+}
+
+line{
+    stroke-width: 2;
+}
+
+.linechart{
+    // background-color: red;
+    background-color: $color--primary;    
+    margin-left: 0.5%;
+}
+.barchart{
+    // background-color: red;
+    background-color: $color--primary;
+    margin-left: 0.5%;
+}
+
+.graphPage{
+    display: grid;
+    // grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-template-columns: 15% 85%;
+    gap: .5rem;    
+}
+
+.graph__menu{
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    &__coluna{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+.graph__header{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: .5rem;
+    
+    // justify-content: space-evenly;
+    
+    &__number{
+        display: inline-block;
+        text-align: right;
+        padding: 1rem .5rem 1rem;
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+        color: $color-grey-light-1;
+        
+        font-size: x-large;
+        background-color: $color--primary;
+
+        &--artist{
+            background-size: contain;
+            background-position: left;  
+            background-repeat: no-repeat;
+            resize: both;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(255,255,255,.4)), url("../images/artist-icon.jpg");
+
+        }
+    }
+}
+
+.graph__plot{
+    display: grid;
+    // grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-template-columns: 1fr 1fr;
+    gap: .3rem;
+}

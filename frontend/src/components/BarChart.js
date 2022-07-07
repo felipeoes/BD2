@@ -1,4 +1,4 @@
-import { useD3 } from '../hooks/useD3';
+import { useD3 } from './services/hooks/useD3';
 import React from 'react';
 import * as d3 from 'd3';
 
@@ -37,11 +37,10 @@ export const BarChart = function (dataInput) {
       const y1Axis = (g) =>
         g
           .attr("transform", `translate(${margin.left},0)`)
-          .style("color", "black")
           .call(d3.axisLeft(y1).ticks(null, "s"))
           .call((g) => g.select(".domain").remove())
           .call((g) =>
-            g
+          g
               .append("text")
               .attr("x", -margin.left)
               .attr("y", 10)
@@ -54,8 +53,7 @@ export const BarChart = function (dataInput) {
       svg.select(".y-axis").call(y1Axis);
 
       svg
-        .select(".plot-area")
-        .attr("fill", "rgb(93,146,170)")
+        .select(".plot-area")        
         .selectAll(".columnsHistogram")
         .data(data)
         .join("rect")
@@ -77,6 +75,7 @@ export const BarChart = function (dataInput) {
         marginRight: "0px",
         marginLeft: "0px",
       }}
+      className='barchart'
     >
       <g className="plot-area" />
       <g className="x-axis" />

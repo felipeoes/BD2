@@ -6,6 +6,7 @@
     display: inline-block;
     left: 0;
     top: 0;
+    z-index: 1;
     border: .2rem solid black;
     &__button{
         height: 10.5rem;

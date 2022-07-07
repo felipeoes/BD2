@@ -85,7 +85,7 @@ body {
 .row {
   max-width: 200rem;
   margin: 0 auto;
-  margin-bottom: 8rem; }
+  margin-bottom: 4rem; }
   .row::after {
     content: '';
     display: table;
@@ -108,7 +108,65 @@ body {
     width: calc(3 * (100% - (4 - 1) * 5rem)/4  + (3 - 1) * 5rem); }
 
 .columnsHistogram {
-  color: red; }
+  fill: #587b53; }
+
+.path-line {
+  stroke: #587b53;
+  stroke-width: 3; }
+
+.domain {
+  stroke-width: 3; }
+
+line {
+  stroke-width: 2; }
+
+.linechart {
+  background-color: #778186;
+  margin-left: 0.5%; }
+
+.barchart {
+  background-color: #778186;
+  margin-left: 0.5%; }
+
+.graphPage {
+  display: grid;
+  grid-template-columns: 15% 85%;
+  gap: .5rem; }
+
+.graph__menu {
+  height: 100%;
+  width: 100%;
+  background-color: red;
+  display: flex;
+  flex-direction: column; }
+  .graph__menu__coluna {
+    display: grid;
+    grid-template-columns: 1fr 1fr; }
+
+.graph__header {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: .5rem; }
+  .graph__header__number {
+    display: inline-block;
+    text-align: right;
+    padding: 1rem .5rem 1rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    color: #f7f7f7;
+    font-size: x-large;
+    background-color: #778186; }
+    .graph__header__number--artist {
+      background-size: contain;
+      background-position: left;
+      background-repeat: no-repeat;
+      resize: both;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4)), url("../images/artist-icon.jpg"); }
+
+.graph__plot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .3rem; }
 
 .navigation {
   width: 10.5rem;
@@ -118,6 +176,7 @@ body {
   display: inline-block;
   left: 0;
   top: 0;
+  z-index: 1;
   border: .2rem solid black; }
   .navigation__button {
     height: 10.5rem;
@@ -137,11 +196,11 @@ body {
       background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4)), url("../images/graph.svg"); }
 
 .Content {
-  display: inline-block;
   position: absolute;
   top: 0;
-  left: 10.5rem;
-  width: 100%; }
+  left: 10rem;
+  width: 100%;
+  background-color: #282828; }
 
 .section__group {
   width: 40%;
@@ -156,5 +215,3 @@ body {
 
 .page__description {
   font-size: 3rem; }
-
-/*# sourceMappingURL=main.css.map */
