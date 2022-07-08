@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { UseBarChart } from "../UseBarChart";
 import { UseLineChart } from "../UseLineChart";
+import { UsePieChart } from "../UsePieChart";
 export const GraphPage = function (props){
 
     const geracao_opcoes = function(){
@@ -71,6 +72,7 @@ export const GraphPage = function (props){
                 <div className="graph__plot">
                     <UseBarChart/>
                     <UseLineChart/>
+                    <UsePieChart/>
                 </div>
                 {/* <div className="row">
                     <div className="col-1-2">

@@ -70,7 +70,7 @@ export const BarChart = function (dataInput) {
     <svg
       ref={ref}
       style={{
-        height: 500,
+        height: "100%",
         width: "100%",
         marginRight: "0px",
         marginLeft: "0px",

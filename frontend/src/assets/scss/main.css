@@ -128,13 +128,18 @@ line {
   background-color: #778186;
   margin-left: 0.5%; }
 
+.piechart {
+  background-color: #778186;
+  margin-left: 0.5%;
+  overflow: scroll;
+  box-shadow: 0px -0px 10000px transparent; }
+
 .graphPage {
   display: grid;
   grid-template-columns: 15% 85%;
   gap: .5rem; }
 
 .graph__menu {
-  height: 100%;
   width: 100%;
   background-color: red;
   display: flex;
@@ -145,7 +150,7 @@ line {
 
 .graph__header {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: .5rem; }
   .graph__header__number {
     display: inline-block;
@@ -167,6 +172,10 @@ line {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: .3rem; }
+
+.graph__content {
+  display: grid;
+  grid-template-rows: 10rem 100rem; }
 
 .navigation {
   width: 10.5rem;
