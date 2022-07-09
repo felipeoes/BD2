@@ -1,15 +1,20 @@
 'use strict';
 import { useD3 } from './services/hooks/useD3';
-import React from 'react';
+import React, { useEffect,useRef } from 'react';
 import * as d3 from 'd3';
 
 export const PieChart = function (dataInput) {
+  // Usado para obter o with dos elementos
+  const refWidth = useRef(null);
+
   const [data] = dataInput.data[0];
   
   const ref = useD3(
     (svg) => {
-      const height = 500;
-      const width = 500;
+      
+      // obtenho o valor do 100% height e width
+      const height = svg['_groups'][0][0].clientHeight;
+      const width = svg['_groups'][0][0].clientWidth;
       const margin = 50;
 
 
@@ -89,13 +94,21 @@ export const PieChart = function (dataInput) {
     [data.length]
   );
 
+  useEffect(
+    ()=> {
+      // console.log('width = ', ref.current.offsetWidth);      
+    },
+    []
+  );
+
   return (
     <svg
+      // ref={ref}
       ref={ref}
       style={{
         height: '100%',
         width: '100%',
-        paddingLeft: "100px",
+        // paddingLeft: "100px",
         marginLeft: "0px",
       }}
       className='piechart'

@@ -3,7 +3,7 @@ import React from 'react';
 import * as d3 from 'd3';
 
 export const BarChart = function (dataInput) {
-  const [data,variavel] = dataInput.data;
+  const [data,valorX,valorY] = dataInput.data;
   
   const ref = useD3(
     (svg) => {
@@ -13,13 +13,13 @@ export const BarChart = function (dataInput) {
 
       const x = d3
         .scaleBand()
-        .domain(data.map((d) => d['year']))
+        .domain(data.map((d) => d[valorX]))
         .rangeRound([margin.left, width - margin.right])
         .padding(0.1);
 
       const y1 = d3
         .scaleLinear()
-        .domain([0, d3.max(data, (d) => d[variavel])])
+        .domain([0, d3.max(data, (d) => d[valorY])])
         .rangeRound([height - margin.bottom, margin.top]);
 
       const xAxis = (g) =>
@@ -58,12 +58,12 @@ export const BarChart = function (dataInput) {
         .data(data)
         .join("rect")
         .attr("class", "columnsHistogram")
-        .attr("x", (d) => x(d['year']))
+        .attr("x", (d) => x(d[valorX]))
         .attr("width", x.bandwidth())
-        .attr("y", (d) => y1(d[variavel]))
-        .attr("height", (d) => y1(0) - y1(d[variavel]));
+        .attr("y", (d) => y1(d[valorY]))
+        .attr("height", (d) => y1(0) - y1(d[valorY]));
     },
-    [data.length]
+    [data]
   );
 
   return (

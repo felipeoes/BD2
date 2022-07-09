@@ -14,8 +14,8 @@ export const LineChart = function (dataInput) {
     data = data.map(
         function(instancia){
             return {
-                'date':d3.timeParse("%Y-%m-%d")(instancia['date']),
-                'value': instancia['value']
+                [eixoX] :d3.timeParse("%Y-%m-%d")(instancia[eixoX]),
+                [eixoY]: instancia[eixoY]
             }
         }
     );
@@ -28,6 +28,7 @@ export const LineChart = function (dataInput) {
                 .domain(
                     d3.extent(
                         data, function(d) {
+                            // console.log(d);
                             return d[eixoX];
                         }
                     )
@@ -58,13 +59,11 @@ export const LineChart = function (dataInput) {
                     d3.line()                    
                         .x(
                             function(d) {                                
-                                // console.log(x(d[eixoX]));
                                 return x(d[eixoX])
                             }
                         )
                         .y(
                             function(d) { 
-                                // console.log(y(d[eixoY]));
                                 return y(d[eixoY]) 
                             }
                         )

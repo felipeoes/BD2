@@ -141,12 +141,15 @@ line {
 
 .graph__menu {
   width: 100%;
-  background-color: red;
+  background: linear-gradient(to right, #778186, #c3a461);
   display: flex;
   flex-direction: column; }
   .graph__menu__coluna {
-    display: grid;
-    grid-template-columns: 1fr 1fr; }
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem; }
+    .graph__menu__coluna > .lista_label {
+      font-size: 1.6rem; }
 
 .graph__header {
   display: grid;
@@ -207,7 +210,7 @@ line {
 .Content {
   position: absolute;
   top: 0;
-  left: 10rem;
+  left: 6rem;
   width: 100%;
   background-color: #282828; }
 
