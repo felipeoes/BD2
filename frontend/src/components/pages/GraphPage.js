@@ -7,15 +7,20 @@ import { BarChart } from "../BarChart";
 import { LineChart } from "../LineChart";
 
 import { botoes } from "../services/api";
-import { dataBarChart } from "../services/api";
-import { dataLinearChart } from "../services/api";
+import dadosAPI from "../services/api";
 import { filtros } from "../Filtros";
+import { PieChart } from "../PieChart";
+
 
 export const GraphPage = function (props){
+    const dataBarChart = dadosAPI.dataBarChart;
+    const dataLinearChart = dadosAPI.dataLinearChart;
+    const dataPieChart = dadosAPI.dataPieChart;
 
                 
     const [opcoesSelecionadas,setOpcoesSelecionadas] = useState();
     const [dataBarChartFiltered,setdataBarChartFiltered] = useState(dataBarChart);
+    const [dataLinearChartFiltered,setdataLinearChartFiltered] = useState(dataLinearChart);
     let dadoFiltrado;
 
     const mudarOpcoes = function(e){
@@ -40,15 +45,14 @@ export const GraphPage = function (props){
         // Atualizo o valor inicial dos dados de barra com base no dado consultado da API        
         dadoFiltrado = filtros(dataBarChart,opcoesSelecionadas_aux);        
         setdataBarChartFiltered(dadoFiltrado);
-        console.log('Atualizo');
-        console.log(dataBarChartFiltered);
-
-
         
         // Filtrar dados para o grafico de pizza
         
         // Filtrar dados para o grafico de linha
-        
+        dadoFiltrado = filtros(dataLinearChart,opcoesSelecionadas_aux);        
+        setdataLinearChartFiltered(dadoFiltrado);
+
+
         // Filtrar valores unicos
     }
 
@@ -58,7 +62,6 @@ export const GraphPage = function (props){
         const selecionadoresOpcao = document.querySelectorAll('.opcao_lista');
         const selecionadoresLabel = document.querySelectorAll('.lista_label');
         
-        // [...selecionadoresOpcao].forEach((e)=>console.log(e.value));
         const valorInicial = {};
         [...selecionadoresLabel].forEach(
             (e,_id)=>{
@@ -75,8 +78,13 @@ export const GraphPage = function (props){
         
         // Atualizo o valor inicial dos dados de barra com base no dado consultado da API        
         dadoFiltrado = filtros(dataBarChart,valorInicial);
-        
         setdataBarChartFiltered(dadoFiltrado);
+        
+        
+        // Atualizo o valor inicial dos dados do grafico de linha com base no dado consultado da API        
+        dadoFiltrado = filtros(dataLinearChart,valorInicial);
+        setdataLinearChartFiltered(dadoFiltrado);
+
 
     },[]);
             
@@ -102,10 +110,6 @@ export const GraphPage = function (props){
         return Object.values(botoes).map(plot);
     }
 
-    
-
-    // console.log(Object.values(dataLinearChart).map((d)=>new Date(d.ano,d.mes,1)));
-
     return (
         <div className="Content animacaoEntrada graphPage">
             <div className="graph__menu">
@@ -128,10 +132,8 @@ export const GraphPage = function (props){
                 </div>
                 <div className="graph__plot">
                     <BarChart data={[dataBarChartFiltered,'Ano','Quantidade']} />
-                    {/* <BarChart data={[dataBarChart,'Ano','Quantidade']} /> */}
-                    {/* <BarChart data={[dadoNovo,'Ano','Quantidade']} /> */}
-                    <LineChart data={[dataLinearChart,'data','value']} />
-                    <UsePieChart/>
+                    <LineChart data={[dataLinearChartFiltered,'Data','Valor']} />
+                    <PieChart data={[dataPieChart]} />
                 </div>
 
             </div>

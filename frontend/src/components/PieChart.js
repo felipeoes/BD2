@@ -6,9 +6,10 @@ import * as d3 from 'd3';
 export const PieChart = function (dataInput) {
   // Usado para obter o with dos elementos
   const refWidth = useRef(null);
-
-  const [data] = dataInput.data[0];
   
+  const data = dataInput.data[0];
+  
+
   const ref = useD3(
     (svg) => {
       

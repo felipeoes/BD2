@@ -58,18 +58,18 @@ export const LineChart = function (dataInput) {
                     "d",
                     d3.line()                    
                         .x(
-                            function(d) {                                
+                            function(d) {                
                                 return x(d[eixoX])
                             }
-                        )
-                        .y(
+                            )
+                            .y(
                             function(d) { 
                                 return y(d[eixoY]) 
                             }
                         )
                 );
         },
-        [data.length]
+        [data]
     );
 
     
