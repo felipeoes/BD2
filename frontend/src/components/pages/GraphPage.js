@@ -8,23 +8,24 @@ import { LineChart } from "../LineChart";
 
 import { botoes } from "../services/api";
 import dadosAPI from "../services/api";
-import { filtros } from "../Filtros";
+import { filtros, groupBySum } from "../services/utils";
 import { PieChart } from "../PieChart";
 import { TreeMap } from "../TreeMap";
 
 
 export const GraphPage = function (props){
-    const dataBarChart = dadosAPI.dataBarChart;
-    const dataLinearChart = dadosAPI.dataLinearChart;
+    const dataBarChart1 = dadosAPI.dataBarChart1;
+    const dataLinearChart = dadosAPI.dataLinearChart;    
     const dataPieChart = dadosAPI.dataPieChart;
     const dataTreeMap = dadosAPI.dataTreeMap;
-    
-                
+                    
     const [opcoesSelecionadas,setOpcoesSelecionadas] = useState();
-    const [dataBarChartFiltered,setdataBarChartFiltered] = useState(dataBarChart);
+    const [dataBarChartFiltered,setdataBarChartFiltered] = useState(dataBarChart1);
+    const [dataBarChartFilteredQuantidade,setdataBarChartFilteredQuantidade] = useState(dataBarChart1);
     const [dataLinearChartFiltered,setdataLinearChartFiltered] = useState(dataLinearChart);
+    const [dataLinearChartFilteredQuantidade,setdataLinearChartFilteredQuantidade] = useState(dataLinearChart);
     const [datadataTreeMapFiltered,setdatadataTreeMapFiltered] = useState(dataTreeMap);
-    let dadoFiltrado;
+    let dadoFiltrado, dadoFiltrado2;
 
     const mudarOpcoes = function(e){
         let novo_valor;
@@ -43,24 +44,35 @@ export const GraphPage = function (props){
         opcoesSelecionadas_aux[e.target.id]=e.target.value;
         setOpcoesSelecionadas(opcoesSelecionadas_aux);
         
-        // Filtrar dados para o grafico de barras
-
+        
         // Atualizo o valor inicial dos dados de barra com base no dado consultado da API        
-        dadoFiltrado = filtros(dataBarChart,opcoesSelecionadas_aux);        
-        setdataBarChartFiltered(dadoFiltrado);
+        // Filtrar dados para o grafico de barras
+        dadoFiltrado = filtros(dataBarChart1,opcoesSelecionadas_aux);      
+        dadoFiltrado2 = groupBySum(dadoFiltrado,'Ano','Valor');  
+        setdataBarChartFiltered(dadoFiltrado2);
+
+        dadoFiltrado2 = groupBySum(dadoFiltrado,'Ano','Quantidade');  
+        setdataBarChartFilteredQuantidade(dadoFiltrado2);
         
         // Filtrar dados para o grafico de pizza
         
         // Filtrar dados para o grafico de linha
-        dadoFiltrado = filtros(dataLinearChart,opcoesSelecionadas_aux);        
-        setdataLinearChartFiltered(dadoFiltrado);
+        dadoFiltrado = filtros(dataLinearChart,opcoesSelecionadas_aux);     
+        dadoFiltrado2 = groupBySum(dadoFiltrado,'Data','Valor');
+        setdataLinearChartFiltered(dadoFiltrado2);
+        
+        dadoFiltrado2 = groupBySum(dadoFiltrado,'Data','Quantidade');
+        setdataLinearChartFilteredQuantidade(dadoFiltrado2);
         
         // Filtrar dados para o grafico de tree map
 
         // Filtrar valores unicos
+
+        // console.log(dataLinearChartFiltered);
+
     }
 
-    // const dadoFiltrado = {...dataBarChart};
+    // const dadoFiltrado = {...dataBarChart1};
     
     useEffect(()=>{
         const selecionadoresOpcao = document.querySelectorAll('.opcao_lista');
@@ -81,14 +93,21 @@ export const GraphPage = function (props){
         setOpcoesSelecionadas(valorInicial);
         
         // Atualizo o valor inicial dos dados de barra com base no dado consultado da API        
-        dadoFiltrado = filtros(dataBarChart,valorInicial);
-        setdataBarChartFiltered(dadoFiltrado);
+        dadoFiltrado = filtros(dataBarChart1,valorInicial);
+        dadoFiltrado2 = groupBySum(dadoFiltrado,'Ano','Valor');
+        setdataBarChartFiltered(dadoFiltrado2);
+        
+        dadoFiltrado2 = groupBySum(dadoFiltrado,'Ano','Quantidade');
+        setdataBarChartFilteredQuantidade(dadoFiltrado2);
         
         
         // Atualizo o valor inicial dos dados do grafico de linha com base no dado consultado da API        
         dadoFiltrado = filtros(dataLinearChart,valorInicial);
-        setdataLinearChartFiltered(dadoFiltrado);
-
+        dadoFiltrado2 = groupBySum(dadoFiltrado,'Data','Valor');
+        setdataLinearChartFiltered(dadoFiltrado2);
+        
+        dadoFiltrado2 = groupBySum(dadoFiltrado,'Data','Quantidade');
+        setdataLinearChartFilteredQuantidade(dadoFiltrado2);
 
     },[]);
             
@@ -96,8 +115,6 @@ export const GraphPage = function (props){
     
     const geracao_opcoes = function(){
         
-
-
         const plot = function(botao){
             // const nome = 'opcao_lista_'.concat(numero);
             return (
@@ -135,9 +152,11 @@ export const GraphPage = function (props){
                     </div>
                 </div>
                 <div className="graph__plot">
-                    <BarChart data={[dataBarChartFiltered,'Ano','Quantidade']}  tituloGrafico = 'Custo Total de Objetos Comprados por Ano'/>
-                    <LineChart data={[dataLinearChartFiltered,'Data','Valor']} tituloGrafico = 'Série Temporal do Custo Mensal de Objetos Comprados'/>
-                    <PieChart data={[dataPieChart]} tituloGrafico = 'Qtd Colecao'/>
+                    <BarChart data={[dataBarChartFiltered,'Ano','Valor']}  tituloGrafico = 'Custo Total de Objetos Comprados por Ano' tituloEixoY = 'Custo ($)'/>
+                    <LineChart data={[dataLinearChartFiltered,'Data','Valor']} tituloGrafico = 'Série Temporal do Custo Mensal de Objetos Comprados' tituloEixoY = 'Custo ($)'/>
+                    <BarChart data={[dataBarChartFilteredQuantidade,'Ano','Quantidade']}  tituloGrafico = 'Quantidade de Objetos Comprados por Ano' tituloEixoY = 'Quantidade'/>
+                    <LineChart data={[dataLinearChartFilteredQuantidade,'Data','Quantidade']} tituloGrafico = 'Série Temporal da Quantidade Mensal de Objetos Comprados' tituloEixoY = 'Quantidade'/>
+                    <PieChart data={[dataPieChart]} tituloGrafico = 'Quantidade de Colecao'/>
                     <TreeMap data={[dataTreeMap]} tituloGrafico = 'Árvore agrupada de ...'/>
                 </div>
 

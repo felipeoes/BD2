@@ -3,27 +3,28 @@
 export const botoes = {
     1:{
         label:'Funcionalidades',
-        opcoes: ['Objetos Comprados', 'Coleções', 'Objetos Emprestados']
+        opcoes:['TODOS','Objetos Comprados', 'Coleções', 'Objetos Emprestados']
     },
     2:{
         label:'Tipo',
-        opcoes:['Tipo 1','Tipo 2','Tipo 3']
+        opcoes:['TODOS','Tipo 1','Tipo 2','Tipo 3']
     },
     3:{
         label:'Classe',
-        opcoes:['Classe 1','Classe 2','Classe 3']
+        opcoes:['TODOS','Classe 1','Classe 2','Classe 3']
     },
     // 4:{
     //     label:'Mês',
-    //     opcoes:['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho']
-    // },
-    // 5:{
-    //     label:'Ano',
-    //     opcoes:[2020,2021,2022]
+    //     opcoes:['TODOS',1,2,3,4,5,6,7]
+    //     // opcoes:['TODOS','Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho']
     // },
     4:{
+        label:'Ano',
+        opcoes:['TODOS',2020,2021,2022]
+    },
+    5:{
         label:'Coleção',
-        opcoes:['Coleção 1','Coleção 2','Coleção 3']
+        opcoes:['TODOS','Coleção 1','Coleção 2','Coleção 3']
     },
 };
 
@@ -51,6 +52,7 @@ for (let fId = 0; fId < funcionalidadesLista.length; fId++){
                                 Mes:mes,
                                 Data:ano+'-'+((''+mes).length == 1 ? '0'+mes : mes)+'-01',
                                 Valor:Math.random()*100,
+                                Quantidade:Math.random()*10,
                             }
                         )
                     }
@@ -60,13 +62,13 @@ for (let fId = 0; fId < funcionalidadesLista.length; fId++){
     }
 }
 
-const dataBarChart = [];
+const dataBarChart1 = [];
 for (let fId = 0; fId < funcionalidadesLista.length; fId++){
     for (let tId = 0; tId < tiposLista.length; tId++){
         for (let cId = 0; cId < coletacaoLista.length; cId++){
             for (let classId = 0; classId < classeLista.length; classId++){
                 for (let ano = 2020; ano < 2023; ano++){
-                    dataBarChart.push(
+                    dataBarChart1.push(
                         {
                             Funcionalidades: funcionalidadesLista[fId],
                             Tipo: tiposLista[tId],
@@ -74,6 +76,7 @@ for (let fId = 0; fId < funcionalidadesLista.length; fId++){
                             Classe: classeLista[classId],
                             Ano:ano,
                             Quantidade:Math.random()*100,
+                            Valor:Math.random()*100*12
                         }
                     )
                 }
@@ -89,13 +92,13 @@ for (let cId = 0; cId < coletacaoLista.length; cId++) {
 
 const dataTreeMap = [
     {name:'Origin',parent:'',value:''},
-    {name:'grp1',parent:'Origin',value:12},
-    {name:'grp2',parent:'Origin',value:23},
-    {name:'grp3',parent:'Origin',value:11},
-    {name:'grp4',parent:'Origin',value:40},
-    {name:'grp5',parent:'Origin',value:30},
-    {name:'grp6',parent:'Origin',value:25}
+    {name:'Colecao 1',parent:'Origin',value:12},
+    {name:'Colecao 2',parent:'Origin',value:23},
+    {name:'Colecao 3',parent:'Origin',value:11},
+    {name:'Colecao 4',parent:'Origin',value:40},
+    {name:'Colecao 5',parent:'Origin',value:30},
+    {name:'Colecao 6',parent:'Origin',value:25}
 ]
 
 
-export default {dataLinearChart, dataBarChart,dataPieChart,dataTreeMap};
+export default {dataLinearChart, dataBarChart1,dataPieChart,dataTreeMap};

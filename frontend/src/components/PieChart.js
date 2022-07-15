@@ -16,7 +16,7 @@ export const PieChart = function (dataInput) {
       // obtenho o valor do 100% height e width
       const height = svg['_groups'][0][0].clientHeight;
       const width = svg['_groups'][0][0].clientWidth;
-      const margin = 50;
+      const margin = 20;
 
 
       // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
@@ -115,7 +115,7 @@ export const PieChart = function (dataInput) {
         // ref={ref}
         ref={ref}
         style={{
-          height: '89%',
+          height: '100%',
           width: '100%',
           // paddingLeft: "100px",
           marginLeft: "0px",

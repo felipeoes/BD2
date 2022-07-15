@@ -11,7 +11,7 @@ export const filtros = function(dadoOriginal,opcoesSelecionadas){
                 verdadeiro = true;
 
                 camposDadoOriginal.forEach((campo)=>{
-                    if ( campos.includes(campo)){
+                    if ( campos.includes(campo) && opcoesSelecionadas[campo] != 'TODOS'){
                         verdadeiro *= (dado[campo]==opcoesSelecionadas[campo]);
                     }
                 });
@@ -22,4 +22,18 @@ export const filtros = function(dadoOriginal,opcoesSelecionadas){
         );
 
     return dadoFiltrado;
+}
+
+export const groupBySum = function(dadoFiltrado,campoParaAgrupar, campoParaSomar){
+    let result = [];
+    dadoFiltrado.reduce(function(res, value) {
+        if (!res[value[campoParaAgrupar]]) {
+            res[value[campoParaAgrupar]] = { [campoParaAgrupar]: value[campoParaAgrupar], [campoParaSomar]: 0 };
+            result.push(res[value[campoParaAgrupar]])
+        }
+        res[value[campoParaAgrupar]][campoParaSomar] += value[campoParaSomar];
+        return res;
+        }, {});
+
+    return result;
 }

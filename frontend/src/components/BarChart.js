@@ -62,6 +62,17 @@ export const BarChart = function (dataInput) {
         .attr("width", x.bandwidth())
         .attr("y", (d) => y1(d[valorY]))
         .attr("height", (d) => y1(0) - y1(d[valorY]));
+      
+      svg
+        .select(".y-axis--label")
+        .attr("text-anchor", "end")
+        .attr("transform", "rotate(-90)")
+        .attr("y", "1rem")
+        .attr("x", -height/2)
+        .text(dataInput.tituloEixoY);
+
+
+        // svg.select(".x-axis--label")
     },
     [data]
   );
@@ -88,6 +99,8 @@ export const BarChart = function (dataInput) {
         <g className="plot-area" />
         <g className="x-axis" />
         <g className="y-axis" />
+        <text className = 'y-axis--label'></text>
+        <text className = 'x-axis--label'></text>
       </svg>
     </div>
   );

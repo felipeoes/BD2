@@ -6,10 +6,9 @@ export const LineChart = function (dataInput) {
     let [data,eixoX,eixoY] = dataInput.data;
     
     // const margin = {top: 10, right: 30, bottom: 30, left: 60};
-    const padding = {top: 10, right: 30, bottom: 40, left: 30};
+    const padding = {top: 10, right: 30, bottom: 40, left: 40};
     // const width = 500 - padding.left - padding.right;
     // const height = 450 - padding.top - padding.bottom;
-
 
 
     data = data.map(
@@ -20,6 +19,7 @@ export const LineChart = function (dataInput) {
             }
         }
     );
+
 
     const ref = useD3(
         (svg) => {       
@@ -35,7 +35,7 @@ export const LineChart = function (dataInput) {
                         }
                     )
                 )
-                .range([ 0, width ]);
+                .range([ padding.left, width ]);
 
             
             // aplica as alteracoes no elemento do eixo x
@@ -49,7 +49,9 @@ export const LineChart = function (dataInput) {
                 .range([ height - padding.bottom, 0 ]);
 
             // aplica as alteracoes no elemento do eixo x
+            // .attr("transform", `translate(300, 0)`)
             svg.select(".y-axis")
+                .attr("transform", 'translate(' + padding.left + ', 0)')
                 .call(d3.axisLeft(y));
 
             svg.select('.path-line')
@@ -60,7 +62,8 @@ export const LineChart = function (dataInput) {
                     "d",
                     d3.line()                    
                         .x(
-                            function(d) {                
+                            function(d) {   
+                                // console.log(x(d[eixoX]));
                                 return x(d[eixoX])
                             }
                             )
@@ -70,6 +73,13 @@ export const LineChart = function (dataInput) {
                             }
                         )
                 );
+            svg
+                .select(".y-axis--label")
+                .attr("text-anchor", "end")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 10)
+                .attr("x", -height/2)
+                .text(dataInput.tituloEixoY);
         },
         [data]
     );
@@ -98,10 +108,12 @@ export const LineChart = function (dataInput) {
             }}
             className='linechart'
             >
-            <g className="plot-area" />
-            <g className="x-axis" />
-            <g className="y-axis" />
-            <path className='path-line'></path>
+                <g className="plot-area" />
+                <g className="x-axis" />
+                <g className="y-axis" />
+                <path className='path-line'></path>
+                <text className = 'y-axis--label'></text>
+                <text className = 'x-axis--label'></text>
             </svg>
         </div>
       );
