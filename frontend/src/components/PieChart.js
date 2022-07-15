@@ -103,18 +103,27 @@ export const PieChart = function (dataInput) {
   );
 
   return (
-    <svg
-      // ref={ref}
-      ref={ref}
-      style={{
-        height: '100%',
-        width: '100%',
-        // paddingLeft: "100px",
-        marginLeft: "0px",
-      }}
-      className='piechart'
-    >
-      <g className="pie-center" />
-    </svg>
+    <div>
+      <h1 
+      className='titleGraph'
+        style={{
+          height:"10%"
+        }}>
+          {dataInput.tituloGrafico}
+      </h1>
+      <svg
+        // ref={ref}
+        ref={ref}
+        style={{
+          height: '89%',
+          width: '100%',
+          // paddingLeft: "100px",
+          marginLeft: "0px",
+        }}
+        className='piechart'
+      >
+        <g className="pie-center" />
+      </svg>
+    </div>
   );
 }

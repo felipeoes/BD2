@@ -10,17 +10,20 @@ import { botoes } from "../services/api";
 import dadosAPI from "../services/api";
 import { filtros } from "../Filtros";
 import { PieChart } from "../PieChart";
+import { TreeMap } from "../TreeMap";
 
 
 export const GraphPage = function (props){
     const dataBarChart = dadosAPI.dataBarChart;
     const dataLinearChart = dadosAPI.dataLinearChart;
     const dataPieChart = dadosAPI.dataPieChart;
-
+    const dataTreeMap = dadosAPI.dataTreeMap;
+    
                 
     const [opcoesSelecionadas,setOpcoesSelecionadas] = useState();
     const [dataBarChartFiltered,setdataBarChartFiltered] = useState(dataBarChart);
     const [dataLinearChartFiltered,setdataLinearChartFiltered] = useState(dataLinearChart);
+    const [datadataTreeMapFiltered,setdatadataTreeMapFiltered] = useState(dataTreeMap);
     let dadoFiltrado;
 
     const mudarOpcoes = function(e){
@@ -51,7 +54,8 @@ export const GraphPage = function (props){
         // Filtrar dados para o grafico de linha
         dadoFiltrado = filtros(dataLinearChart,opcoesSelecionadas_aux);        
         setdataLinearChartFiltered(dadoFiltrado);
-
+        
+        // Filtrar dados para o grafico de tree map
 
         // Filtrar valores unicos
     }
@@ -131,9 +135,10 @@ export const GraphPage = function (props){
                     </div>
                 </div>
                 <div className="graph__plot">
-                    <BarChart data={[dataBarChartFiltered,'Ano','Quantidade']} />
-                    <LineChart data={[dataLinearChartFiltered,'Data','Valor']} />
-                    <PieChart data={[dataPieChart]} />
+                    <BarChart data={[dataBarChartFiltered,'Ano','Quantidade']}  tituloGrafico = 'Custo Total de Objetos Comprados por Ano'/>
+                    <LineChart data={[dataLinearChartFiltered,'Data','Valor']} tituloGrafico = 'Série Temporal do Custo Mensal de Objetos Comprados'/>
+                    <PieChart data={[dataPieChart]} tituloGrafico = 'Qtd Colecao'/>
+                    <TreeMap data={[dataTreeMap]} tituloGrafico = 'Árvore agrupada de ...'/>
                 </div>
 
             </div>

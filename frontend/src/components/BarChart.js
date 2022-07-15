@@ -7,8 +7,8 @@ export const BarChart = function (dataInput) {
   
   const ref = useD3(
     (svg) => {
-      const height = 500;
-      const width = 500;
+      const height = svg['_groups'][0][0].clientHeight;
+      const width = svg['_groups'][0][0].clientWidth;
       const margin = { top: 20, right: 30, bottom: 30, left: 40 };
 
       const x = d3
@@ -67,19 +67,28 @@ export const BarChart = function (dataInput) {
   );
 
   return (
-    <svg
-      ref={ref}
-      style={{
-        height: "100%",
-        width: "100%",
-        marginRight: "0px",
-        marginLeft: "0px",
-      }}
-      className='barchart'
-    >
-      <g className="plot-area" />
-      <g className="x-axis" />
-      <g className="y-axis" />
-    </svg>
+    <div>
+      <h1 
+      className='titleGraph'
+        style={{
+          height:"10%"
+        }}>
+          {dataInput.tituloGrafico}
+      </h1>
+      <svg
+        ref={ref}
+        style={{
+          height: "90%",
+          width: "100%",
+          marginRight: "0px",
+          marginLeft: "0px",
+        }}
+        className='barchart'
+      >
+        <g className="plot-area" />
+        <g className="x-axis" />
+        <g className="y-axis" />
+      </svg>
+    </div>
   );
 }

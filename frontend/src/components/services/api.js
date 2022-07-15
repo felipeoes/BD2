@@ -86,17 +86,16 @@ const dataPieChart = {};
 for (let cId = 0; cId < coletacaoLista.length; cId++) {
     dataPieChart[coletacaoLista[cId]] = Math.random()*100
 };
-    // {
-    //   artista_1: 9,
-    //   artista_2 :20,
-    //   artista_3 :30,
-    //   artista_4 :8,
-    //   artista_5 :12,
-    //   artista_6 :100,
-    //   artista_7 :100,
-    //   artista_8 :30,
-    //   artista_9 :100
-    // }
+
+const dataTreeMap = [
+    {name:'Origin',parent:'',value:''},
+    {name:'grp1',parent:'Origin',value:12},
+    {name:'grp2',parent:'Origin',value:23},
+    {name:'grp3',parent:'Origin',value:11},
+    {name:'grp4',parent:'Origin',value:40},
+    {name:'grp5',parent:'Origin',value:30},
+    {name:'grp6',parent:'Origin',value:25}
+]
 
 
-export default {dataLinearChart, dataBarChart,dataPieChart};
+export default {dataLinearChart, dataBarChart,dataPieChart,dataTreeMap};

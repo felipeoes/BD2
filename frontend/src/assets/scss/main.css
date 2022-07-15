@@ -180,6 +180,10 @@ line {
   display: grid;
   grid-template-rows: 10rem 100rem; }
 
+.titleGraph {
+  background-color: #778186;
+  text-align: center; }
+
 .navigation {
   width: 10.5rem;
   height: 100vh;

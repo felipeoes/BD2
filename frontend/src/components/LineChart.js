@@ -6,9 +6,10 @@ export const LineChart = function (dataInput) {
     let [data,eixoX,eixoY] = dataInput.data;
     
     // const margin = {top: 10, right: 30, bottom: 30, left: 60};
-    const padding = {top: 10, right: 30, bottom: 0, left: 30};
-    const width = 500 - padding.left - padding.right;
-    const height = 450 - padding.top - padding.bottom;
+    const padding = {top: 10, right: 30, bottom: 40, left: 30};
+    // const width = 500 - padding.left - padding.right;
+    // const height = 450 - padding.top - padding.bottom;
+
 
 
     data = data.map(
@@ -22,7 +23,8 @@ export const LineChart = function (dataInput) {
 
     const ref = useD3(
         (svg) => {       
-
+            const height = svg['_groups'][0][0].clientHeight;
+            const width = svg['_groups'][0][0].clientWidth;    
             // Define o eixo X
             const x = d3.scaleTime()            
                 .domain(
@@ -38,13 +40,13 @@ export const LineChart = function (dataInput) {
             
             // aplica as alteracoes no elemento do eixo x
             svg.select(".x-axis")
-                .attr("transform", `translate(0, ${height})`)
+                .attr("transform", `translate(0, ${height - padding.bottom})`)
                 .call(d3.axisBottom(x));
 
             // Add Y axis
             const y = d3.scaleLinear()
                 .domain([0, d3.max(data, function(d) {return d[eixoY]; })])
-                .range([ height, 0 ]);
+                .range([ height - padding.bottom, 0 ]);
 
             // aplica as alteracoes no elemento do eixo x
             svg.select(".y-axis")
@@ -75,23 +77,32 @@ export const LineChart = function (dataInput) {
     
 
     return (
-        <svg
-          ref={ref}
-          style={{
-            // height: height + margin.top + margin.bottom,
-            height: '100%',
-            width: '100%',
-            paddingRight: padding.right,
-            paddingLeft: padding.left,
-            paddingTop: padding.top,
-            paddingBottom: padding.bottom,
-          }}
-          className='linechart'
-        >
-          <g className="plot-area" />
-          <g className="x-axis" />
-          <g className="y-axis" />
-          <path className='path-line'></path>
-        </svg>
+        <div>
+            <h1 
+            className='titleGraph'
+            style={{
+                height:"10%"
+            }}>
+                {dataInput.tituloGrafico}
+            </h1>
+            <svg
+            ref={ref}
+            style={{
+                // height: height + margin.top + margin.bottom,
+                height: '90%',
+                width: '100%',
+                paddingRight: padding.right,
+                paddingLeft: padding.left,
+                paddingTop: padding.top,
+                // paddingBottom: padding.bottom,
+            }}
+            className='linechart'
+            >
+            <g className="plot-area" />
+            <g className="x-axis" />
+            <g className="y-axis" />
+            <path className='path-line'></path>
+            </svg>
+        </div>
       );
 }
