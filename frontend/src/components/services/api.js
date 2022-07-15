@@ -28,6 +28,77 @@ export const botoes = {
     },
 };
 
+export const botoesInput = {
+    1:{
+        label:'Tabelas',
+        tabelas:[
+            {'artista':[
+                {'nome':'string'},
+                {'descrartista':'string'},
+                {'datamorte':'date'},
+                {'estiloprincipal':'string'},
+                {'periodoart':'date'},
+                {'paisdeorigem':'string'}
+            ]},
+            {'coleca':[
+                {'nomecol':'string'},
+                {'desccol':'string'},
+                {'endereco':'string'},
+                {'telefone':'string'},
+                {'pessoacontato':'string'},
+                {'tipocol':'string'},
+            ]},
+            {'emprestados':[
+                {'numobj4':'string'},
+                {'datadevolucao':'string'},
+                {'dataemprestimo':'string'},
+                {'nomecolpert':'string'},
+            ]},
+            {'esculturas':[
+                {'numobj2':'string'},
+                {'material':'string'},
+                {'altura':'string'},
+                {'peso':'string'},
+            ]},
+            {'exposicoes':[
+                {'nomeexp':'string'},
+                {'datainicio':'string'},
+                {'datafinal':'string'},
+            ]},
+            {'expostoem':[
+                {'numobj6':'string'},
+                {'nomeexpo':'string'},
+            ]},
+            {'objetos_arte':[
+                {'numid':'string'},
+                {'titulo':'string'},
+                {'descricao':'string'},
+                {'anocriacao':'string'},
+                {'periodoobj':'string'},
+                {'paiscultura':'string'},
+                {'estilo':'string'},
+                {'tipoobjart':'string'},
+                {'catobjart':'string'},
+                {'nomeart':'string'},
+                {'custo':'string'},
+            ]},
+            {'outros':[
+                {'numobj3':'string'},
+                {'tipo':'string'},
+            ]},
+            {'permanentes':[
+                {'numobj5':'string'},
+                {'dataaquisicao':'string'},
+                {'emexposicao':'string'},
+            ]},
+            {'pinturas':[
+                {'numobj1':'string'},
+                {'tipotinta':'string'},
+                {'suporte':'string'},
+            ]}]
+    },
+};
+
 
 
 const funcionalidadesLista = ['Objetos Comprados', 'Coleções', 'Objetos Emprestados'];

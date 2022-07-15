@@ -1,0 +1,29 @@
+.input__content{
+    // background-color: red;
+}
+
+.inputPage{
+    display: grid;
+    // grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-template-columns: 15% 85%;
+    gap: .5rem;    
+}
+
+.input__menu{
+    // height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, $color--primary, $color--secondary);
+    display: flex;
+    flex-direction: column;
+    &__coluna{
+        // display: grid;
+        // grid-template-columns: 1fr 1fr;
+        display: flex;
+        flex-direction: column;
+        margin-top: 2rem;
+        &>.lista_label{
+            font-size: $text-size-default;
+        }
+    }
+
+}

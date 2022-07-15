@@ -183,6 +183,23 @@ line {
   background-color: #778186;
   text-align: center; }
 
+.inputPage {
+  display: grid;
+  grid-template-columns: 15% 85%;
+  gap: .5rem; }
+
+.input__menu {
+  width: 100%;
+  background: linear-gradient(to right, #778186, #c3a461);
+  display: flex;
+  flex-direction: column; }
+  .input__menu__coluna {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem; }
+    .input__menu__coluna > .lista_label {
+      font-size: 1.6rem; }
+
 .navigation {
   width: 10.5rem;
   height: 100vh;
