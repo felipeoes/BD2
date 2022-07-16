@@ -3,20 +3,30 @@ import { Formularios } from "../Formularios";
 import { botoes,botoesInput } from "../services/api";
 
 export const InputPage = function (props){
-    const [opcoesSelecionadas,setOpcoesSelecionadas] = useState();
+    const [opcoesSelecionadas,setOpcoesSelecionadas] = useState(['artista']);
+    
+    useEffect(()=>{
+        const valorInicial = document.querySelector('.opcao_lista--inputPage').value;        
+        // console.log(valorInicial);
+        // const valorArmazenado = {'valor':[botoesInput[1].tabelas[valorInicial]]};
+        // console.log(botoesInput[1].tabelas[valorInicial][1]);
+        setOpcoesSelecionadas(valorInicial);
+        
+    },[]);
 
     const geracao_opcoes = function(){
+        
+        
         const mudarOpcoes = function(e){
-            console.log(e.target.value);
             setOpcoesSelecionadas(e.target.value);
         }
         const plot = function(botao){
-            // const nome = 'opcao_lista_'.concat(numero);
+
             return (
                 <div key={botao.label} className="input__menu__coluna ">
                     <label className="lista_label" htmlFor={botao.label}>{botao.label}</label>
-                    <select className = "opcao_lista" name="opcao_lista" id={botao.label} onChange={mudarOpcoes}>                        
-                        {botao.tabelas.map((opcao,_id)=><option key={_id}>{Object.keys(opcao)[0]}</option>)}
+                    <select className = "opcao_lista opcao_lista--inputPage" name="opcao_lista" id={botao.label} onChange={mudarOpcoes}>                        
+                        {Object.keys(botao.tabelas).map((opcao,_id)=><option key={_id}>{opcao}</option>)}
                     </select>                    
                 </div>
             );
@@ -31,7 +41,7 @@ export const InputPage = function (props){
                 {geracao_opcoes()}
             </div>
             <div className="input__content">
-                <Formularios botoes={botoesInput}/>
+                <Formularios tabelaEscolhida={opcoesSelecionadas} camposFormulario={botoesInput[1].tabelas[opcoesSelecionadas]}/>
             </div>
         </div>
     );

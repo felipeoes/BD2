@@ -81,6 +81,14 @@ body {
     width: auto;
     background-color: rgba(0, 0, 0, 0.4);
     text-align: center; }
+  .btn__input--atualizar {
+    display: block;
+    width: 20rem;
+    text-align: center;
+    font-size: 1.6rem;
+    background: linear-gradient(to right, #778186, #c3a461);
+    margin-top: 1rem;
+    margin-bottom: 4rem; }
 
 .row {
   max-width: 200rem;
@@ -183,6 +191,17 @@ line {
   background-color: #778186;
   text-align: center; }
 
+.input__content {
+  background-color: #778186; }
+  .input__content--linha {
+    display: grid;
+    grid-template-columns: .2fr .5fr; }
+  .input__content--label {
+    font-size: 2rem;
+    padding-left: 1rem; }
+  .input__content--field {
+    padding-right: 1rem; }
+
 .inputPage {
   display: grid;
   grid-template-columns: 15% 85%;
@@ -199,6 +218,11 @@ line {
     margin-top: 2rem; }
     .input__menu__coluna > .lista_label {
       font-size: 1.6rem; }
+
+.input__titulo_tabela {
+  font-size: 3rem;
+  font-weight: 700;
+  padding-left: 1rem; }
 
 .navigation {
   width: 10.5rem;
@@ -234,9 +258,10 @@ line {
   width: 100%;
   background-color: #282828; }
 
+.header {
+  background: linear-gradient(to right, #778186, #c3a461); }
+
 .section__group {
-  width: 40%;
-  background-color: #587b53;
   padding: 2rem; }
   .section__group--names {
     font-size: 1.6rem;

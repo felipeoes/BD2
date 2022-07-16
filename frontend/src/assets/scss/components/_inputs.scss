@@ -1,5 +1,19 @@
 .input__content{
-    // background-color: red;
+    background-color: $color--primary;
+    &--linha{
+        display: grid;
+        grid-template-columns: .2fr .5fr;
+        // grid-template-columns: repeat(auto-fit, minmax(100px, .2fr));
+    }
+
+    &--label{
+        // font-size: $text-size-big;
+        font-size: $text-size-medium;
+        padding-left: 1rem;
+    }
+    &--field{
+        padding-right: 1rem;
+    }
 }
 
 .inputPage{
@@ -26,4 +40,10 @@
         }
     }
 
+}
+
+.input__titulo_tabela{
+    font-size: $text-size-big;
+    font-weight: 700;
+    padding-left: 1rem;
 }
