@@ -3,23 +3,23 @@ import React from 'react';
 import * as d3 from 'd3';
 
 export const BarChart = function (dataInput) {
-  const [data,variavel] = dataInput.data;
+  const [data,valorX,valorY] = dataInput.data;
   
   const ref = useD3(
     (svg) => {
-      const height = 500;
-      const width = 500;
+      const height = svg['_groups'][0][0].clientHeight;
+      const width = svg['_groups'][0][0].clientWidth;
       const margin = { top: 20, right: 30, bottom: 30, left: 40 };
 
       const x = d3
         .scaleBand()
-        .domain(data.map((d) => d['year']))
+        .domain(data.map((d) => d[valorX]))
         .rangeRound([margin.left, width - margin.right])
         .padding(0.1);
 
       const y1 = d3
         .scaleLinear()
-        .domain([0, d3.max(data, (d) => d[variavel])])
+        .domain([0, d3.max(data, (d) => d[valorY])])
         .rangeRound([height - margin.bottom, margin.top]);
 
       const xAxis = (g) =>
@@ -58,28 +58,50 @@ export const BarChart = function (dataInput) {
         .data(data)
         .join("rect")
         .attr("class", "columnsHistogram")
-        .attr("x", (d) => x(d['year']))
+        .attr("x", (d) => x(d[valorX]))
         .attr("width", x.bandwidth())
-        .attr("y", (d) => y1(d[variavel]))
-        .attr("height", (d) => y1(0) - y1(d[variavel]));
+        .attr("y", (d) => y1(d[valorY]))
+        .attr("height", (d) => y1(0) - y1(d[valorY]));
+      
+      svg
+        .select(".y-axis--label")
+        .attr("text-anchor", "end")
+        .attr("transform", "rotate(-90)")
+        .attr("y", "1rem")
+        .attr("x", -height/2)
+        .text(dataInput.tituloEixoY);
+
+
+        // svg.select(".x-axis--label")
     },
-    [data.length]
+    [data]
   );
 
   return (
-    <svg
-      ref={ref}
-      style={{
-        height: 500,
-        width: "100%",
-        marginRight: "0px",
-        marginLeft: "0px",
-      }}
-      className='barchart'
-    >
-      <g className="plot-area" />
-      <g className="x-axis" />
-      <g className="y-axis" />
-    </svg>
+    <div>
+      <h1 
+      className='titleGraph'
+        style={{
+          height:"10%"
+        }}>
+          {dataInput.tituloGrafico}
+      </h1>
+      <svg
+        ref={ref}
+        style={{
+          height: "90%",
+          width: "100%",
+          marginRight: "0px",
+          marginLeft: "0px",
+        }}
+        className='barchart'
+      >
+        <g className="plot-area" />
+        <g className="x-axis" />
+        <g className="y-axis" />
+        <text className = 'y-axis--label'></text>
+        <text className = 'x-axis--label'></text>
+      </svg>
+    </div>
   );
 }

@@ -324,3 +324,6 @@ MUSEU_PROJ/.env
 MUSEU_PROJ/teste.txt
 .DS_Store
 *.DS_Store
+*gitignore
+TODO
+TODO RASCUNHO.jpeg

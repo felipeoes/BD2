@@ -1,6 +1,11 @@
+.header{
+    background: linear-gradient(to right, $color--primary, $color--secondary);
+}
+
 .section__group{
-    width: 40%;
-    background-color: $color--tertiary;
+    // width: 40%;
+    // background-color: $color--tertiary;
+    // background: linear-gradient(to right, $color--primary, $color--secondary);
     padding: 2rem;
 
     &--names{

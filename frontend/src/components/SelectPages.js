@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import { HomePage } from "./pages/homePage";
-import { InputPage } from "./pages/inputPage";
-import { TablePage } from "./pages/tablePage";
+import { HomePage } from "./pages/HomePage";
+import { InputPage } from "./pages/InputPage";
+import { TablePage } from "./pages/TablePage";
 import { GraphPage } from "./pages/GraphPage";
 
 export const SelectPages = function (props){
