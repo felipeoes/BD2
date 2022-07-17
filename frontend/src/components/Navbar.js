@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import { SelectPages } from "./SelectPages";
 
 export const Navbar = function (){
-    const [page,setPage] = useState('input');
+    const [page,setPage] = useState('graph');
 
     // useEffect(()=>{
     //     console.log(page);

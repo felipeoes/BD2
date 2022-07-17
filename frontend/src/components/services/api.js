@@ -8,15 +8,15 @@ import axios from 'axios';
 const endPoint = 'http://127.0.0.1:8000/esquemas/?format=json';
 // axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
 // axios.defaults.headers.get['Content-Type'] = 'application/json;charset=utf-8';
-// axios(endPoint).then((response)=>{
-//     console.log(response);
-// });
-
-ImportDataPython(endPoint).then(
-    function(val){
-        console.log(val);
+let botoesInputAPI = {
+    1:{
+        label:'Tabelas'
     }
-)
+};
+axios(endPoint).then((response)=>{
+    botoesInputAPI[1]['tabelas'] = response.data;
+});
+
 
 export const botoes = {
     1:{
@@ -31,11 +31,6 @@ export const botoes = {
         label:'Classe',
         opcoes:['TODOS','Classe 1','Classe 2','Classe 3']
     },
-    // 4:{
-    //     label:'Mês',
-    //     opcoes:['TODOS',1,2,3,4,5,6,7]
-    //     // opcoes:['TODOS','Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho']
-    // },
     4:{
         label:'Ano',
         opcoes:['TODOS',2020,2021,2022]
@@ -47,77 +42,77 @@ export const botoes = {
 };
 
 
-export const botoesInput = {
-    1:{
-        label:'Tabelas',
-        tabelas:{
-            'artista':[
-                {'nome':'text'},
-                {'descrartista':'text'},
-                {'datamorte':'date'},
-                {'estiloprincipal':'text'},
-                {'periodoart':'date'},
-                {'paisdeorigem':'text'}
-            ],
-            'colecao':[
-                {'nomecol':'text'},
-                {'desccol':'text'},
-                {'endereco':'text'},
-                {'telefone':'text'},
-                {'pessoacontato':'text'},
-                {'tipocol':'text'},
-            ],
-            'emprestados':[
-                {'numobj4':'text'},
-                {'datadevolucao':'date'},
-                {'dataemprestimo':'date'},
-                {'nomecolpert':'text'},
-            ],
-            'esculturas':[
-                {'numobj2':'text'},
-                {'material':'text'},
-                {'altura':'text'},
-                {'peso':'text'},
-            ],
-            'exposicoes':[
-                {'nomeexp':'text'},
-                {'datainicio':'date'},
-                {'datafinal':'date'},
-            ],
-            'expostoem':[
-                {'numobj6':'text'},
-                {'nomeexpo':'text'},
-            ],
-            'objetos_arte':[
-                {'numid':'text'},
-                {'titulo':'text'},
-                {'descricao':'text'},
-                {'anocriacao':'number'},
-                {'periodoobj':'text'},
-                {'paiscultura':'text'},
-                {'estilo':'text'},
-                {'tipoobjart':'text'},
-                {'catobjart':'text'},
-                {'nomeart':'text'},
-                {'custo':'text'},
-            ],
-            'outros':[
-                {'numobj3':'text'},
-                {'tipo':'text'},
-            ],
-            'permanentes':[
-                {'numobj5':'text'},
-                {'dataaquisicao':'date'},
-                {'emexposicao':'text'},
-            ],
-            'pinturas':[
-                {'numobj1':'text'},
-                {'tipotinta':'text'},
-                {'suporte':'text'},
-            ]
-        }
-    },
-};
+// const botoesInput = {
+//     1:{
+//         label:'Tabelas',
+//         tabelas:{
+//             'artista':[
+//                 {'nome':'text'},
+//                 {'descrartista':'text'},
+//                 {'datamorte':'date'},
+//                 {'estiloprincipal':'text'},
+//                 {'periodoart':'date'},
+//                 {'paisdeorigem':'text'}
+//             ],
+//             'colecao':[
+//                 {'nomecol':'text'},
+//                 {'desccol':'text'},
+//                 {'endereco':'text'},
+//                 {'telefone':'text'},
+//                 {'pessoacontato':'text'},
+//                 {'tipocol':'text'},
+//             ],
+//             'emprestados':[
+//                 {'numobj4':'text'},
+//                 {'datadevolucao':'date'},
+//                 {'dataemprestimo':'date'},
+//                 {'nomecolpert':'text'},
+//             ],
+//             'esculturas':[
+//                 {'numobj2':'text'},
+//                 {'material':'text'},
+//                 {'altura':'text'},
+//                 {'peso':'text'},
+//             ],
+//             'exposicoes':[
+//                 {'nomeexp':'text'},
+//                 {'datainicio':'date'},
+//                 {'datafinal':'date'},
+//             ],
+//             'expostoem':[
+//                 {'numobj6':'text'},
+//                 {'nomeexpo':'text'},
+//             ],
+//             'objetos_arte':[
+//                 {'numid':'text'},
+//                 {'titulo':'text'},
+//                 {'descricao':'text'},
+//                 {'anocriacao':'number'},
+//                 {'periodoobj':'text'},
+//                 {'paiscultura':'text'},
+//                 {'estilo':'text'},
+//                 {'tipoobjart':'text'},
+//                 {'catobjart':'text'},
+//                 {'nomeart':'text'},
+//                 {'custo':'text'},
+//             ],
+//             'outros':[
+//                 {'numobj3':'text'},
+//                 {'tipo':'text'},
+//             ],
+//             'permanentes':[
+//                 {'numobj5':'text'},
+//                 {'dataaquisicao':'date'},
+//                 {'emexposicao':'text'},
+//             ],
+//             'pinturas':[
+//                 {'numobj1':'text'},
+//                 {'tipotinta':'text'},
+//                 {'suporte':'text'},
+//             ]
+//         }
+//     },
+// };
 
 
 const funcionalidadesLista = ['Objetos Comprados', 'Coleções', 'Objetos Emprestados'];
@@ -191,4 +186,4 @@ const dataTreeMap = [
 ]
 
 
-export default {dataLinearChart, dataBarChart1,dataPieChart,dataTreeMap};
+export default {dataLinearChart, dataBarChart1,dataPieChart,dataTreeMap, botoesInputAPI};
