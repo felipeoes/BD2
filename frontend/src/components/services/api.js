@@ -1,4 +1,22 @@
 // Requisito dados da API
+import { ImportDataPython } from "./ImportDataPython";
+import axios from 'axios';
+
+
+
+// const endPoint = 'http://127.0.0.1:8000/esquemas/?format=api';
+const endPoint = 'http://127.0.0.1:8000/esquemas/?format=json';
+// axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.headers.get['Content-Type'] = 'application/json;charset=utf-8';
+// axios(endPoint).then((response)=>{
+//     console.log(response);
+// });
+
+ImportDataPython(endPoint).then(
+    function(val){
+        console.log(val);
+    }
+)
 
 export const botoes = {
     1:{

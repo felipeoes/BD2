@@ -96,3 +96,6 @@ def create_fake_data():
             objeto = Emprestados.objects.create(numobj4=obj_art, datadevolucao=data_devolucao,
                                                 dataemprestimo=data_emprestimo,
                                                 nomecolpert=random.choice(Colecao.objects.all()))
+
+if (__name__ == 'main'):
+    create_fake_data()
