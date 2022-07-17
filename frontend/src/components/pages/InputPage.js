@@ -1,10 +1,15 @@
 import React, {useEffect, useState} from "react";
 import { Formularios } from "../Formularios";
-import { botoes,botoesInput } from "../services/api";
+import { botoes } from "../services/api";
+import dadosAPI from "../services/api";
+
 
 export const InputPage = function (props){
     const [opcoesSelecionadas,setOpcoesSelecionadas] = useState(['artista']);
     
+    // console.log('Input!')
+    const botoesInput = dadosAPI.botoesInputAPI;
+
     useEffect(()=>{
         const valorInicial = document.querySelector('.opcao_lista--inputPage').value;        
         // console.log(valorInicial);
