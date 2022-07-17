@@ -99,8 +99,6 @@ class EsquemaViewSet(viewsets.ModelViewSet):
                         coluna.name: mapeia_tipo_dado(
                             coluna.get_internal_type())
                     })
-                # esquemas[tabela][coluna.name] = mapeia_tipo_dado(
-                #     coluna.get_internal_type())
                 except:
                     esquemas[tabela] = []
                     esquemas[tabela].append({
@@ -110,7 +108,18 @@ class EsquemaViewSet(viewsets.ModelViewSet):
         return Response(esquemas)
 
 
+def converte_objeto_json(objeto):
+    objeto_json = {}
+    for coluna in objeto._meta.get_fields():
+        try:
+            objeto_json[coluna.name] = objeto.__getattribute__(coluna.name)
+        except:
+            pass
+    return objeto_json
+
 # Retorna listas de objetos de acordo com a categoria
+
+
 class ListaObjetosPorCategoriaViewSet(viewsets.ModelViewSet):
     queryset = ObjetosArte.objects.all()
     serializer_class = ObjetosArteSerializer
@@ -118,10 +127,18 @@ class ListaObjetosPorCategoriaViewSet(viewsets.ModelViewSet):
     def list(self, request):
         categorias = ObjetosArte.objects.all().values_list(
             'catobjart', flat=True).distinct()
+
         listagem = {}
         for cat in categorias:
             objetos = ObjetosArte.objects.filter(catobjart=cat)
-            listagem[cat] = [objeto.numid for objeto in objetos]
+            listagem[cat] = [{
+                "numid": objeto.numid,
+                "titulo": objeto.titulo,
+                "descricao": objeto.descricao,
+                "tipoobjart": objeto.tipoobjart,
+                "custo": objeto.custo
+            }
+                for objeto in objetos]
         return Response(listagem)
 
 
@@ -136,7 +153,17 @@ class ListaObjetosPorTipoViewSet(viewsets.ModelViewSet):
         listagem = {}
         for tipo in tipos:
             objetos = ObjetosArte.objects.filter(tipoobjart=tipo)
-            listagem[tipo] = [objeto.numid for objeto in objetos]
+
+            listagem[tipo] = [
+                {
+                    "numid": objeto.numid,
+                    "titulo": objeto.titulo,
+                    "descricao": objeto.descricao,
+                    "catobjart": objeto.catobjart,
+                    "custo": objeto.custo
+                }
+                for objeto in objetos
+            ]
         return Response(listagem)
 
 # Retorna o custo total dos objetos comprados por ano
@@ -368,31 +395,125 @@ class QuantidadeObjetosPorMesViewSet(viewsets.ModelViewSet):
         return Response(listagem)
 
 
-class AgrupamentoPorCategoriaTipoColecaoAnoViewSet(viewsets.ModelViewSet):
+class OpcoesBotoesDisponiveis(viewsets.ModelViewSet):
     queryset = ObjetosArte.objects.all()
     serializer_class = ObjetosArteSerializer
 
     def list(self, request):
-        # Recupera quando os objetos foram criados no banco de dados
-        timestamps = ObjetosArte.objects.all().values_list(
-            'criado_em', flat=True).distinct()
-        anos = [timestamp.year for timestamp in timestamps]
+        objetos = gera_objetos_com_data()
 
-        listagem = {}
+        tipos = [objeto.tipoobjart for objeto in objetos if hasattr(
+            objeto, 'data')]
+
+        tipos = list(set(tipos))
+        tipos.sort()
+        tipos.append('TODOS')
+
+        anos = [objeto.data.year for objeto in objetos if hasattr(
+            objeto, 'data')]
+        anos = list(set(anos))
+        anos.sort()
+        anos.append('TODOS')
+
+        categorias = [objeto.catobjart for objeto in objetos if hasattr(
+            objeto, 'data')]
+        categorias = list(set(categorias))
+        categorias.sort()
+        categorias.append('TODOS')
+
+        data = {
+            1: {
+                'label': 'Tipo',
+                'opcoes': tipos
+            },
+            2: {
+                'label': 'Ano',
+                'opcoes': anos
+            },
+            3: {
+                'label': 'Categoria',
+                'opcoes': categorias
+            }
+        }
+
+        return Response(data)
+
+
+def format_month(month: int):
+    # Corrige o mês para dois algarismos se for menor que 10
+
+    if isinstance(month, int):
+        if month < 10:
+            return '0' + str(month)
+        else:
+            return str(month)
+    else:
+        if len(month) == 1:
+            return '0' + month
+        else:
+            return month
+
+
+class AgrupamentoPorTipoAnoCategoriaViewSet(viewsets.ModelViewSet):
+    queryset = ObjetosArte.objects.all()
+    serializer_class = ObjetosArteSerializer
+
+    def list(self, request):
+        objetos = gera_objetos_com_data()
+
+        anos = [objeto.data.year for objeto in objetos if hasattr(
+            objeto, 'data')]
+        anos = list(set(anos))
+        anos.sort()
+
+        meses = [objeto.data.month for objeto in objetos if hasattr(
+            objeto, 'data')]
+        meses = list(set(meses))
+        meses.sort()
+
+        tipos = [objeto.tipoobjart for objeto in objetos if hasattr(
+            objeto, 'data')]
+        tipos = list(set(tipos))
+        tipos.sort()
+
+        categorias = [objeto.catobjart for objeto in objetos if hasattr(
+            objeto, 'data')]
+        categorias = list(set(categorias))
+        categorias.sort()
+
+        listagem = []
 
         for ano in anos:
-            for cat in ObjetosArte.objects.filter(criado_em__year=ano).values_list('catobjart', flat=True).distinct():
-                for tipo in ObjetosArte.objects.filter(criado_em__year=ano, catobjart=cat).values_list('tipoobjart', flat=True).distinct():
-                    if tipo == 'Emprestado':
-                        for colecao in Emprestados.objects.filter(criado_em__year=ano, catobjart=cat, tipoobjart=tipo).values_list('nomecolpert', flat=True).distinct():
-                            custo = Emprestados.objects.filter(
-                                criado_em__year=ano, catobjart=cat, tipoobjart=tipo, nomecolpert=colecao).aggregate(Sum('custo'))['custo__sum']
-                            listagem[ano, cat, tipo, colecao] = custo
-                    # for colecao in ObjetosArte.objects.filter(criado_em__year=ano, catobjart=cat, tipoobjart=tipo).values_list('colecao', flat=True).distinct():
-                    #     custo = ObjetosArte.objects.filter(criado_em__year=ano, catobjart=cat, tipoobjart=tipo, colecao=colecao).aggregate(Sum('custo'))['custo__sum']
-                    #     listagem[ano, cat, tipo, colecao] = custo
+            for mes in meses:
+                for tipo in tipos:
+                    for categoria in categorias:
+                        quantidade = len([objeto for objeto in objetos if hasattr(
+                            objeto, 'data') and objeto.data.month == mes and objeto.data.year == ano and objeto.tipoobjart == tipo and objeto.catobjart == categoria])
 
-        todos = ObjetosArte.objects.all().aggregate(Sum('custo'))['custo__sum']
-        listagem['TODOS'] = todos
+                        custo = sum([objeto.custo for objeto in objetos if hasattr(
+                            objeto, 'data') and objeto.data.month == mes and objeto.data.year == ano and objeto.tipoobjart == tipo and objeto.catobjart == categoria])
+
+                        data = f"{ano}-{format_month(mes)}-01"
+
+                        listagem.append({
+                            'ano': ano,
+                            'mes': mes,
+                            'data': data,
+                            'tipo': tipo,
+                            'categoria': categoria,
+                            'quantidade': quantidade,
+                            'custo': custo
+                        })
+
+        listagem.append({
+            'ano': 'TODOS',
+            'mes': 'TODOS',
+            'tipo': 'TODOS',
+            'categoria': 'TODOS',
+            'quantidade': len([objeto for objeto in objetos if hasattr(
+                objeto, 'data')]),
+            'custo': sum([objeto.custo for objeto in objetos if hasattr(
+                objeto, 'data')])
+        })
 
         return Response(listagem)

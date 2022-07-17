@@ -28,15 +28,18 @@ router.register('objetos-custo-total-ano-tipo',
                 CustoTotalPorAnoObjetosPorTipoViewSet, basename='CustoTotalPorAnoTipo')
 router.register('objetos-custo-total-mes',
                 CustoTotalPorMesObjetosViewSet, basename='CustoTotalPorMes')
-router.register('objetos-custo-total-mes-tipo', CustoTotalPorMesObjetosPorTipoViewSet, basename='CustoTotalPorMesTipo')
+router.register('objetos-custo-total-mes-tipo',
+                CustoTotalPorMesObjetosPorTipoViewSet, basename='CustoTotalPorMesTipo')
 router.register('objetos-quantidade-total-ano',
                 QuantidadeObjetosPorAnoViewSet, basename='QuantidadeTotalPorAno')
 router.register('objetos-quantidade-total-mes',
                 QuantidadeObjetosPorMesViewSet, basename='QuantidadeTotalPorMes')
 
 router.register('esquemas', EsquemaViewSet, basename='Esquemas')
+router.register('opcoes-botoes', OpcoesBotoesDisponiveis,
+                basename='OpcaoBotao')
 router.register(
-    'agrupamentos', AgrupamentoPorCategoriaTipoColecaoAnoViewSet, basename='Agrupamentos')
+    'agrupamentos', AgrupamentoPorTipoAnoCategoriaViewSet, basename='Agrupamentos')
 
 
 urlpatterns = [

@@ -97,5 +97,6 @@ def create_fake_data():
                                                 dataemprestimo=data_emprestimo,
                                                 nomecolpert=random.choice(Colecao.objects.all()))
 
+
 if (__name__ == 'main'):
     create_fake_data()
