@@ -60,3 +60,6 @@ class PinturasSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pinturas
         fields = '__all__'
+        
+        
+        

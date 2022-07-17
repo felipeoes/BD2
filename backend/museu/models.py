@@ -76,6 +76,7 @@ class Expostoem(models.Model):
 
 class ObjetosArte(models.Model):
     numid = models.IntegerField(primary_key=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
     titulo = models.CharField(max_length=50, blank=True, null=True)
     descricao = models.CharField(max_length=50, blank=True, null=True)
     anocriacao = models.IntegerField(blank=True, null=True)
@@ -91,7 +92,6 @@ class ObjetosArte(models.Model):
     class Meta:
         managed = False
         db_table = 'objetos_arte'
-
 
 class Outros(models.Model):
     numobj3 = models.OneToOneField(

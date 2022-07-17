@@ -16,10 +16,30 @@ router.register('outros', OutrosViewSet, basename='Outros')
 router.register('permanentes', PermanentesViewSet, basename='Permanentes')
 router.register('pinturas', PinturasViewSet, basename='Pinturas')
 
+# Rotas mais complexas
+router.register('listaobjetos-tipo', ListaObjetosPorTipoViewSet,
+                basename='ListaObjetosPorTipo')
+router.register('listaobjetos-categoria', ListaObjetosPorCategoriaViewSet,
+                basename='ListaObjetosPorCategoria')
+# router.register('listaobjetos-colecao', ListaObjetosPorColecaoViewSet, basename='ListaObjetosPorColecao')
+router.register('objetos-custo-total-ano',
+                CustoTotalPorAnoObjetosViewSet, basename='CustoTotalPorAno')
+router.register('objetos-custo-total-ano-tipo',
+                CustoTotalPorAnoObjetosPorTipoViewSet, basename='CustoTotalPorAnoTipo')
+router.register('objetos-custo-total-mes',
+                CustoTotalPorMesObjetosViewSet, basename='CustoTotalPorMes')
+router.register('objetos-custo-total-mes-tipo', CustoTotalPorMesObjetosPorTipoViewSet, basename='CustoTotalPorMesTipo')
+router.register('objetos-quantidade-total-ano',
+                QuantidadeObjetosPorAnoViewSet, basename='QuantidadeTotalPorAno')
+router.register('objetos-quantidade-total-mes',
+                QuantidadeObjetosPorMesViewSet, basename='QuantidadeTotalPorMes')
+
+router.register('esquemas', EsquemaViewSet, basename='Esquemas')
+router.register(
+    'agrupamentos', AgrupamentoPorCategoriaTipoColecaoAnoViewSet, basename='Agrupamentos')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('objetos-arte/<str:type>/',
-         get_art_objects_by_type_view, name='objetos-arte-tipo')
 ]

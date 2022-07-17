@@ -41,7 +41,7 @@ export const botoesInput = {
                 {'periodoart':'date'},
                 {'paisdeorigem':'text'}
             ],
-            'coleca':[
+            'colecao':[
                 {'nomecol':'text'},
                 {'desccol':'text'},
                 {'endereco':'text'},
