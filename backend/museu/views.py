@@ -70,6 +70,8 @@ class PinturasViewSet(viewsets.ModelViewSet):
 
 def mapeia_tipo_dado(tipo: str):
     mapeamento = {
+        "OneToOneField": "text",
+        "ForeignKey": "text",
         "DateTimeField": "date",
         "DateField": "date",
         "CharField": "text",
@@ -92,8 +94,19 @@ class EsquemaViewSet(viewsets.ModelViewSet):
         for tabela in tabelas:
             esquemas[tabela] = {}
             for coluna in eval(tabela)._meta.get_fields():
-                esquemas[tabela][coluna.name] = mapeia_tipo_dado(
-                    coluna.get_internal_type())
+                try:
+                    esquemas[tabela].append({
+                        coluna.name: mapeia_tipo_dado(
+                            coluna.get_internal_type())
+                    })
+                # esquemas[tabela][coluna.name] = mapeia_tipo_dado(
+                #     coluna.get_internal_type())
+                except:
+                    esquemas[tabela] = []
+                    esquemas[tabela].append({
+                        coluna.name: mapeia_tipo_dado(
+                            coluna.get_internal_type())
+                    })
         return Response(esquemas)
 
 
@@ -222,7 +235,7 @@ class CustoTotalPorMesObjetosPorTipoViewSet(viewsets.ModelViewSet):
             objeto, 'data')]
         anos = list(set(anos))
         anos.sort()
-        
+
         meses = [objeto.data.month for objeto in objetos if hasattr(
             objeto, 'data')]
         meses = list(set(meses))
@@ -242,8 +255,10 @@ class CustoTotalPorMesObjetosPorTipoViewSet(viewsets.ModelViewSet):
                     try:
                         listagem[ano][mes][tipo] = custo
                     except:
-                        listagem[ano] = {} if not ano in listagem else listagem[ano]
-                        listagem[ano][mes] = {} if not mes in listagem[ano] else listagem[ano][mes]
+                        listagem[ano] = {
+                        } if not ano in listagem else listagem[ano]
+                        listagem[ano][mes] = {
+                        } if not mes in listagem[ano] else listagem[ano][mes]
                         listagem[ano][mes][tipo] = custo
 
         todos = sum(
