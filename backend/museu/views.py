@@ -423,15 +423,15 @@ class OpcoesBotoesDisponiveis(viewsets.ModelViewSet):
 
         data = {
             1: {
-                'label': 'Tipo',
+                'label': 'tipo',
                 'opcoes': tipos
             },
             2: {
-                'label': 'Ano',
+                'label': 'ano',
                 'opcoes': anos
             },
             3: {
-                'label': 'Categoria',
+                'label': 'categoria',
                 'opcoes': categorias
             }
         }
@@ -508,6 +508,7 @@ class AgrupamentoPorTipoAnoCategoriaViewSet(viewsets.ModelViewSet):
         listagem.append({
             'ano': 'TODOS',
             'mes': 'TODOS',
+            'data': 'TODOS',
             'tipo': 'TODOS',
             'categoria': 'TODOS',
             'quantidade': len([objeto for objeto in objetos if hasattr(

@@ -1,6 +1,7 @@
 'use strict';
 import 'regenerator-runtime/runtime';
 
+
 export const ImportDataPython = async function(endPoint,content){
 
     function getCookie(name) {
@@ -38,8 +39,7 @@ export const ImportDataPython = async function(endPoint,content){
         headers: headers,
     };    
     let response = await fetch(endPoint,myInit).then(function(response){
-        // return response.json();
-        console.log(response);
+
         return response;
         }
     )

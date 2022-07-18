@@ -1,11 +1,11 @@
 // Requisito dados da API
 import { ImportDataPython } from "./ImportDataPython";
 import axios from 'axios';
-
+import 'regenerator-runtime/runtime';
 
 
 // const endPoint = 'http://127.0.0.1:8000/esquemas/?format=api';
-const endPoint = 'http://127.0.0.1:8000/esquemas/?format=json';
+const endPointEsquema = 'http://127.0.0.1:8000/esquemas/?format=json';
 // axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
 // axios.defaults.headers.get['Content-Type'] = 'application/json;charset=utf-8';
 let botoesInputAPI = {
@@ -13,33 +13,10 @@ let botoesInputAPI = {
         label:'Tabelas'
     }
 };
-axios(endPoint).then((response)=>{
+axios(endPointEsquema).then((response)=>{
     botoesInputAPI[1]['tabelas'] = response.data;
 });
 
-
-export const botoes = {
-    1:{
-        label:'Funcionalidades',
-        opcoes:['TODOS','Objetos Comprados', 'Coleções', 'Objetos Emprestados']
-    },
-    2:{
-        label:'Tipo',
-        opcoes:['TODOS','Tipo 1','Tipo 2','Tipo 3']
-    },
-    3:{
-        label:'Classe',
-        opcoes:['TODOS','Classe 1','Classe 2','Classe 3']
-    },
-    4:{
-        label:'Ano',
-        opcoes:['TODOS',2020,2021,2022]
-    },
-    5:{
-        label:'Coleção',
-        opcoes:['TODOS','Coleção 1','Coleção 2','Coleção 3']
-    },
-};
 
 
 // const botoesInput = {
@@ -186,4 +163,58 @@ const dataTreeMap = [
 ]
 
 
-export default {dataLinearChart, dataBarChart1,dataPieChart,dataTreeMap, botoesInputAPI};
+
+// Importacao para pageTable
+const endPointTableAll = {
+    'artistas':'http://127.0.0.1:8000/artistas/?format=json',
+    'colecoes':'http://127.0.0.1:8000/colecoes/?format=json',
+};
+
+
+
+let consultasTableAPI = {};
+
+export const importConsultaTable = function(){
+
+    let fetchDataFromAPI = async (url) => {
+        let response = await fetch(url);
+        let result = await response.json();
+        return result;
+    };
+
+
+    Object.keys(endPointTableAll).map((chave)=>{
+        consultasTableAPI[chave]=fetchDataFromAPI(endPointTableAll[chave]);
+
+    });    
+
+    return consultasTableAPI;
+}
+//############################################################################################### 
+//###############################################################################################
+
+// Importacao para pageTable
+const endPointGraphAll = {
+    'agrupamentos':'http://127.0.0.1:8000/agrupamentos/?format=json',
+    'botoes':'http://127.0.0.1:8000/opcoes-botoes/?format=json',
+};
+let consultasGraphAPI = {};
+
+export const importConsultaGraph = function(){
+
+    let fetchDataFromAPI = async (url) => {
+        let response = await fetch(url);
+        let result = await response.json();
+        return result;
+    };
+
+
+    Object.keys(endPointGraphAll).map((chave)=>{
+        consultasGraphAPI[chave]=fetchDataFromAPI(endPointGraphAll[chave]);
+    });    
+
+    return consultasGraphAPI;
+}
+
+
+export default {dataLinearChart, dataBarChart1,dataPieChart,dataTreeMap, botoesInputAPI, consultasTableAPI};

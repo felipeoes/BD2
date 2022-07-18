@@ -6,26 +6,106 @@ import { UsePieChart } from "../UsePieChart";
 import { BarChart } from "../BarChart";
 import { LineChart } from "../LineChart";
 
-import { botoes } from "../services/api";
+// import { botoes } from "../services/api";
 import dadosAPI from "../services/api";
 import { filtros, groupBySum } from "../services/utils";
 import { PieChart } from "../PieChart";
 import { TreeMap } from "../TreeMap";
-
+import { importConsultaGraph } from "../services/api";
 
 export const GraphPage = function (props){
-    const dataBarChart1 = dadosAPI.dataBarChart1;
-    const dataLinearChart = dadosAPI.dataLinearChart;    
+
+    // const dataBarChart1 = dadosAPI.dataBarChart1;    
+    // const dataLinearChart = dadosAPI.dataLinearChart;    
     const dataPieChart = dadosAPI.dataPieChart;
     const dataTreeMap = dadosAPI.dataTreeMap;
-                    
+
+    
+    const [dataLinearChart,setDataLinearChart] = useState();
+    const [dataBarChart1,setDataBarChart1] = useState();
+
+    const botoesInicial = {
+        1:{
+            label:'X',
+            opcoes:['TODOS']
+        },        
+        2:{
+            label:'ano',
+            opcoes:['TODOS']
+        },
+    };
+
+    const [botoes,setBotoes] = useState(botoesInicial);
+
+
     const [opcoesSelecionadas,setOpcoesSelecionadas] = useState();
-    const [dataBarChartFiltered,setdataBarChartFiltered] = useState(dataBarChart1);
-    const [dataBarChartFilteredQuantidade,setdataBarChartFilteredQuantidade] = useState(dataBarChart1);
+    const [dataBarChartFiltered,setdataBarChartFiltered] = useState(dataLinearChart);
+    const [dataBarChartFilteredQuantidade,setdataBarChartFilteredQuantidade] = useState(dataLinearChart);
     const [dataLinearChartFiltered,setdataLinearChartFiltered] = useState(dataLinearChart);
     const [dataLinearChartFilteredQuantidade,setdataLinearChartFilteredQuantidade] = useState(dataLinearChart);
     const [datadataTreeMapFiltered,setdatadataTreeMapFiltered] = useState(dataTreeMap);
+
+    const [dadosConsulta,setDadosConsulta] = useState('');
+
     let dadoFiltrado, dadoFiltrado2;
+
+    // const dadoFiltrado = {...dataLinearChart};
+    
+    useEffect(()=>{
+
+        const resultadoPromise = importConsultaGraph();
+        const camposFiltro = Object.keys(resultadoPromise);
+        
+        resultadoPromise[camposFiltro[1]].then((listaBotoes)=>{
+            setBotoes(listaBotoes);
+        });
+
+        resultadoPromise[camposFiltro[0]].then((dataLineChartPromise)=>{            
+            setDataLinearChart(dataLineChartPromise);
+
+            
+
+            const selecionadoresOpcao = document.querySelectorAll('.opcao_lista');
+            const selecionadoresLabel = document.querySelectorAll('.lista_label');
+            
+            const valorInicial = {};
+
+            resultadoPromise[camposFiltro[1]].then((listaBotoes)=>{
+                Object.values(listaBotoes).forEach((linha)=>{
+                    valorInicial[linha.label]=linha.opcoes[0];
+                });
+                
+                setOpcoesSelecionadas(valorInicial);
+                
+                
+                // Atualizo o valor inicial dos dados de barra com base no dado consultado da API        
+                dadoFiltrado = filtros(dataLineChartPromise,valorInicial);                
+                dadoFiltrado2 = groupBySum(dadoFiltrado,'ano','custo');                    
+                setdataBarChartFiltered(dadoFiltrado2);
+                
+                dadoFiltrado2 = groupBySum(dadoFiltrado,'ano','quantidade');
+                setdataBarChartFilteredQuantidade(dadoFiltrado2);
+                
+                
+                // Atualizo o valor inicial dos dados do grafico de linha com base no dado consultado da API        
+                dadoFiltrado = filtros(dataLineChartPromise,valorInicial);    
+                dadoFiltrado2 = groupBySum(dadoFiltrado,'data','custo');
+                
+                setdataLinearChartFiltered(dadoFiltrado2);
+                
+                dadoFiltrado2 = groupBySum(dadoFiltrado,'data','quantidade');
+                setdataLinearChartFilteredQuantidade(dadoFiltrado2);
+            });            
+
+
+        });
+        
+
+
+
+    },[]);
+
+
 
     const mudarOpcoes = function(e){
         let novo_valor;
@@ -42,74 +122,40 @@ export const GraphPage = function (props){
         const opcoesSelecionadas_aux = {...opcoesSelecionadas}
         
         opcoesSelecionadas_aux[e.target.id]=e.target.value;
+
         setOpcoesSelecionadas(opcoesSelecionadas_aux);
         
         
         // Atualizo o valor inicial dos dados de barra com base no dado consultado da API        
         // Filtrar dados para o grafico de barras
-        dadoFiltrado = filtros(dataBarChart1,opcoesSelecionadas_aux);      
-        dadoFiltrado2 = groupBySum(dadoFiltrado,'Ano','Valor');  
+        dadoFiltrado = filtros(dataLinearChart,opcoesSelecionadas_aux);      
+        dadoFiltrado2 = groupBySum(dadoFiltrado,'ano','custo');  
         setdataBarChartFiltered(dadoFiltrado2);
 
-        dadoFiltrado2 = groupBySum(dadoFiltrado,'Ano','Quantidade');  
+        dadoFiltrado2 = groupBySum(dadoFiltrado,'ano','quantidade');  
         setdataBarChartFilteredQuantidade(dadoFiltrado2);
         
         // Filtrar dados para o grafico de pizza
         
         // Filtrar dados para o grafico de linha
         dadoFiltrado = filtros(dataLinearChart,opcoesSelecionadas_aux);     
-        dadoFiltrado2 = groupBySum(dadoFiltrado,'Data','Valor');
+        dadoFiltrado2 = groupBySum(dadoFiltrado,'data','custo');        
+
         setdataLinearChartFiltered(dadoFiltrado2);
         
-        dadoFiltrado2 = groupBySum(dadoFiltrado,'Data','Quantidade');
+        dadoFiltrado2 = groupBySum(dadoFiltrado,'data','quantidade');
         setdataLinearChartFilteredQuantidade(dadoFiltrado2);
         
-        // Filtrar dados para o grafico de tree map
-
-        // Filtrar valores unicos
-
-        // console.log(dataLinearChartFiltered);
 
     }
 
-    // const dadoFiltrado = {...dataBarChart1};
-    
-    useEffect(()=>{
-        const selecionadoresOpcao = document.querySelectorAll('.opcao_lista');
-        const selecionadoresLabel = document.querySelectorAll('.lista_label');
-        
-        const valorInicial = {};
-        [...selecionadoresLabel].forEach(
-            (e,_id)=>{
-                if (isNaN(parseInt([...selecionadoresOpcao][_id].value))){                
-                    valorInicial[e.textContent]=[...selecionadoresOpcao][_id].value;
-                }
-                else{
-                    valorInicial[e.textContent]=parseInt([...selecionadoresOpcao][_id].value);
-                }
-            }
-        );
 
-        setOpcoesSelecionadas(valorInicial);
-        
-        // Atualizo o valor inicial dos dados de barra com base no dado consultado da API        
-        dadoFiltrado = filtros(dataBarChart1,valorInicial);
-        dadoFiltrado2 = groupBySum(dadoFiltrado,'Ano','Valor');
-        setdataBarChartFiltered(dadoFiltrado2);
-        
-        dadoFiltrado2 = groupBySum(dadoFiltrado,'Ano','Quantidade');
-        setdataBarChartFilteredQuantidade(dadoFiltrado2);
-        
-        
-        // Atualizo o valor inicial dos dados do grafico de linha com base no dado consultado da API        
-        dadoFiltrado = filtros(dataLinearChart,valorInicial);
-        dadoFiltrado2 = groupBySum(dadoFiltrado,'Data','Valor');
-        setdataLinearChartFiltered(dadoFiltrado2);
-        
-        dadoFiltrado2 = groupBySum(dadoFiltrado,'Data','Quantidade');
-        setdataLinearChartFilteredQuantidade(dadoFiltrado2);
 
-    },[]);
+
+    const atualizarConsultas = function(){
+        const resultado = importConsultaGraph();
+        setDadosConsulta(resultado);        
+    };
             
 
     
@@ -151,11 +197,11 @@ export const GraphPage = function (props){
                         4
                     </div>
                 </div>
-                <div className="graph__plot">
-                    <BarChart data={[dataBarChartFiltered,'Ano','Valor']}  tituloGrafico = 'Custo Total de Objetos Comprados por Ano' tituloEixoY = 'Custo ($)'/>
-                    <LineChart data={[dataLinearChartFiltered,'Data','Valor']} tituloGrafico = 'Série Temporal do Custo Mensal de Objetos Comprados' tituloEixoY = 'Custo ($)'/>
-                    <BarChart data={[dataBarChartFilteredQuantidade,'Ano','Quantidade']}  tituloGrafico = 'Quantidade de Objetos Comprados por Ano' tituloEixoY = 'Quantidade'/>
-                    <LineChart data={[dataLinearChartFilteredQuantidade,'Data','Quantidade']} tituloGrafico = 'Série Temporal da Quantidade Mensal de Objetos Comprados' tituloEixoY = 'Quantidade'/>
+                <div className="graph__plot">           
+                    <BarChart data={[dataBarChartFiltered,'ano','custo']}  tituloGrafico = 'Custo Total de Objetos Comprados por Ano' tituloEixoY = 'Custo ($)'/>
+                    <LineChart data={[dataLinearChartFiltered,'data','custo']} tituloGrafico = 'Série Temporal do Custo Mensal de Objetos Comprados' tituloEixoY = 'Custo ($)'/>
+                    <BarChart data={[dataBarChartFilteredQuantidade,'ano','quantidade']}  tituloGrafico = 'Quantidade de Objetos Comprados por Ano' tituloEixoY = 'Quantidade'/>
+                    <LineChart data={[dataLinearChartFilteredQuantidade,'Data','quantidade']} tituloGrafico = 'Série Temporal da Quantidade Mensal de Objetos Comprados' tituloEixoY = 'Quantidade'/>
                     <PieChart data={[dataPieChart]} tituloGrafico = 'Quantidade de Colecao'/>
                     <TreeMap data={[dataTreeMap]} tituloGrafico = 'Árvore agrupada de ...'/>
                 </div>
