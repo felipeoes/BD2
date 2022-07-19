@@ -70,8 +70,6 @@ class PinturasViewSet(viewsets.ModelViewSet):
 
 def mapeia_tipo_dado(tipo: str):
     mapeamento = {
-        "OneToOneField": "text",
-        "ForeignKey": "text",
         "DateTimeField": "date",
         "DateField": "date",
         "CharField": "text",
@@ -94,6 +92,9 @@ class EsquemaViewSet(viewsets.ModelViewSet):
         for tabela in tabelas:
             esquemas[tabela] = {}
             for coluna in eval(tabela)._meta.get_fields():
+                internal_type = coluna.get_internal_type()
+                if "OneToOneField" in internal_type or "ForeignKey" in internal_type:
+                    continue
                 try:
                     esquemas[tabela].append({
                         coluna.name: mapeia_tipo_dado(
@@ -407,19 +408,19 @@ class OpcoesBotoesDisponiveis(viewsets.ModelViewSet):
 
         tipos = list(set(tipos))
         tipos.sort()
-        tipos.insert(0,'TODOS')
+        tipos.insert(0, 'TODOS')
 
         anos = [objeto.data.year for objeto in objetos if hasattr(
             objeto, 'data')]
         anos = list(set(anos))
         anos.sort()
-        anos.insert(0,'TODOS')
+        anos.insert(0, 'TODOS')
 
         categorias = [objeto.catobjart for objeto in objetos if hasattr(
             objeto, 'data')]
         categorias = list(set(categorias))
         categorias.sort()
-        categorias.insert(0,'TODOS')
+        categorias.insert(0, 'TODOS')
 
         data = {
             1: {
@@ -482,7 +483,7 @@ class AgrupamentoPorTipoAnoCategoriaViewSet(viewsets.ModelViewSet):
         categorias.sort()
 
         listagem = []
-        
+
         listagem.append({
             'ano': 'TODOS',
             'mes': 'TODOS',
@@ -515,7 +516,5 @@ class AgrupamentoPorTipoAnoCategoriaViewSet(viewsets.ModelViewSet):
                             'quantidade': quantidade,
                             'custo': custo
                         })
-
-
 
         return Response(listagem)
