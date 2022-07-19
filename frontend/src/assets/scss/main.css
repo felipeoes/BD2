@@ -302,6 +302,9 @@ line {
     background-position: center;
     background-repeat: no-repeat;
     resize: both; }
+    .navigation__button--logo {
+      background-image: url("../images/museu.png");
+      background-size: contain; }
     .navigation__button--home {
       background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4)), url("../images/home.svg"); }
     .navigation__button--input {

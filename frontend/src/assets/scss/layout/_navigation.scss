@@ -16,6 +16,10 @@
         background-position: center;  
         background-repeat: no-repeat;
         resize: both;
+        &--logo{
+            background-image:url("../images/museu.png");
+            background-size: contain;
+        }
         &--home{
             background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(255,255,255,.4)), url("../images/home.svg");
         }

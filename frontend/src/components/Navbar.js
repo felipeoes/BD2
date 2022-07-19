@@ -18,11 +18,6 @@ export const Navbar = function (){
         <div>
             <div className="navigation">
                 <div className="navigation__button navigation__button--logo">
-                    <h1>
-                        <p>colocar</p>
-                        <p>LOGO</p>
-                        <p>aqui</p>
-                    </h1>
                 </div>
                 <div className="navigation__button--home navigation__button btn pressing" onClick={fRenderPage}></div>
                 <div className="navigation__button--input navigation__button btn pressing" onClick={fRenderPage}></div>
