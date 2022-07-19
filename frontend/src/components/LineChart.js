@@ -6,8 +6,10 @@ export const LineChart = function (dataInput) {
     
     const padding = {top: 10, right: 30, bottom: 40, left: 40};
     try {
+        
         if(dataInput.data[0].length >= 0){
             let [data,eixoX,eixoY] = dataInput.data;
+            
         
             // const margin = {top: 10, right: 30, bottom: 30, left: 60};
             // const width = 500 - padding.left - padding.right;
@@ -33,7 +35,7 @@ export const LineChart = function (dataInput) {
                         .domain(
                             d3.extent(
                                 data, function(d) {
-                                    // console.log(d);
+                                    
                                     return d[eixoX];
                                 }
                             )
@@ -66,7 +68,7 @@ export const LineChart = function (dataInput) {
                             d3.line()                    
                                 .x(
                                     function(d) {   
-                                        // console.log(x(d[eixoX]));
+                                        
                                         return x(d[eixoX])
                                     }
                                     )

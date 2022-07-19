@@ -407,19 +407,19 @@ class OpcoesBotoesDisponiveis(viewsets.ModelViewSet):
 
         tipos = list(set(tipos))
         tipos.sort()
-        tipos.append('TODOS')
+        tipos.insert(0,'TODOS')
 
         anos = [objeto.data.year for objeto in objetos if hasattr(
             objeto, 'data')]
         anos = list(set(anos))
         anos.sort()
-        anos.append('TODOS')
+        anos.insert(0,'TODOS')
 
         categorias = [objeto.catobjart for objeto in objetos if hasattr(
             objeto, 'data')]
         categorias = list(set(categorias))
         categorias.sort()
-        categorias.append('TODOS')
+        categorias.insert(0,'TODOS')
 
         data = {
             1: {
@@ -482,6 +482,17 @@ class AgrupamentoPorTipoAnoCategoriaViewSet(viewsets.ModelViewSet):
         categorias.sort()
 
         listagem = []
+        
+        listagem.append({
+            'ano': 'TODOS',
+            'mes': 'TODOS',
+            'tipo': 'TODOS',
+            'categoria': 'TODOS',
+            'quantidade': len([objeto for objeto in objetos if hasattr(
+                objeto, 'data')]),
+            'custo': sum([objeto.custo for objeto in objetos if hasattr(
+                objeto, 'data')])
+        })
 
         for ano in anos:
             for mes in meses:
@@ -505,16 +516,6 @@ class AgrupamentoPorTipoAnoCategoriaViewSet(viewsets.ModelViewSet):
                             'custo': custo
                         })
 
-        listagem.append({
-            'ano': 'TODOS',
-            'mes': 'TODOS',
-            'data': 'TODOS',
-            'tipo': 'TODOS',
-            'categoria': 'TODOS',
-            'quantidade': len([objeto for objeto in objetos if hasattr(
-                objeto, 'data')]),
-            'custo': sum([objeto.custo for objeto in objetos if hasattr(
-                objeto, 'data')])
-        })
+
 
         return Response(listagem)

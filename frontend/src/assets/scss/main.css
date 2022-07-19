@@ -201,7 +201,7 @@ line {
 
 .graph__header {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: .5rem; }
   .graph__header__number {
     display: inline-block;
@@ -212,12 +212,27 @@ line {
     color: #f7f7f7;
     font-size: x-large;
     background-color: #778186; }
-    .graph__header__number--artist {
+    .graph__header__number--label {
+      margin-right: 3rem; }
+    .graph__header__number--value {
+      font-size: 5rem;
+      margin-right: 3rem;
+      color: #c3a461;
+      font-weight: 900; }
+    .graph__header__number--custo {
+      background-position: 7% 0%;
       background-size: contain;
-      background-position: left;
+      z-index: 1;
       background-repeat: no-repeat;
       resize: both;
-      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4)), url("../images/artist-icon.jpg"); }
+      background-image: linear-gradient(to right bottom, rgba(88, 123, 83, 0.5), rgba(119, 129, 134, 0), rgba(119, 129, 134, 0)), url("../images/dollar-sign-solid.svg"); }
+    .graph__header__number--quantidade {
+      background-position: 7% 0%;
+      background-size: contain;
+      z-index: 1;
+      background-repeat: no-repeat;
+      resize: both;
+      background-image: linear-gradient(to left bottom, rgba(88, 123, 83, 0.5), rgba(119, 129, 134, 0), rgba(119, 129, 134, 0)), url("../images/numeros.png"); }
 
 .graph__plot {
   display: grid;
@@ -231,6 +246,10 @@ line {
 .titleGraph {
   background-color: #778186;
   text-align: center; }
+
+.graph__dataTreeMap {
+  display: grid;
+  grid-template-rows: 1fr 1fr; }
 
 .input__content {
   background-color: #778186; }

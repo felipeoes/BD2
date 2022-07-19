@@ -14,13 +14,13 @@ export const HomePage = function (props){
                                 Fábio Heiji Yamada
                             </div>
                             <div className="table__row section__group--names">
-                                Fábio Santos
+                                Fábio Luis Ameixieira Santos
                             </div>
                             <div className="table__row section__group--names">
-                                Felipe
+                                Felipe Oliveira do Espirito Santo
                             </div>
                             <div className="table__row section__group--names">
-                                Fernando
+                                Fernando José Germinio Fenley
                             </div>
                         </div>
                         <div className="table__column">
@@ -28,13 +28,13 @@ export const HomePage = function (props){
                                 5690618
                             </div>
                             <div className="table__row section__group--names">
-                                xxxxxx
+                                11795505
                             </div>
                             <div className="table__row section__group--names">
-                                xxxxxx
+                                11925242
                             </div>
                             <div className="table__row section__group--names">
-                                xxxxxx
+                                11207630
                             </div>
                         </div>
                     </div>

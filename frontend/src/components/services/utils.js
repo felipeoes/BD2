@@ -30,17 +30,25 @@ export const filtros = function(dadoOriginal,opcoesSelecionadas){
 
 export const groupBySum = function(dadoFiltrado,campoParaAgrupar, campoParaSomar){
     try {
+    
         let result = [];
         dadoFiltrado.reduce(function(res, value) {
+
+
             if (!res[value[campoParaAgrupar]]) {
+        
                 res[value[campoParaAgrupar]] = { [campoParaAgrupar]: value[campoParaAgrupar], [campoParaSomar]: 0 };
-                result.push(res[value[campoParaAgrupar]])
+                
+                if (value[campoParaAgrupar]!=undefined){
+                    result.push(res[value[campoParaAgrupar]]);
+                }
             }
             res[value[campoParaAgrupar]][campoParaSomar] += value[campoParaSomar];
             return res;
             }, {});
     
         return result;        
+
     } catch (error) {
         return {'dado':''}
     }

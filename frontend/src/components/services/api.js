@@ -153,13 +153,14 @@ for (let cId = 0; cId < coletacaoLista.length; cId++) {
 };
 
 const dataTreeMap = [
-    {name:'Origin',parent:'',value:''},
-    {name:'Colecao 1',parent:'Origin',value:12},
-    {name:'Colecao 2',parent:'Origin',value:23},
-    {name:'Colecao 3',parent:'Origin',value:11},
-    {name:'Colecao 4',parent:'Origin',value:40},
-    {name:'Colecao 5',parent:'Origin',value:30},
-    {name:'Colecao 6',parent:'Origin',value:25}
+    {name:'Origin1',parent:'',value:''},
+    {name:'Colecao 1',parent:'Origin1',value:12},
+    {name:'Colecao 2',parent:'Origin1',value:23},
+    {name:'Colecao 3',parent:'Origin1',value:11},
+    {name:'Origin2',parent:'Origin1',value:''},
+    {name:'Colecao 4',parent:'Origin2',value:2},
+    {name:'Colecao 5',parent:'Origin2',value:30},
+    {name:'Colecao 6',parent:'Origin2',value:25}
 ]
 
 
