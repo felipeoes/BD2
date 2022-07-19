@@ -12,16 +12,12 @@ export const InputPage = function (props){
 
     useEffect(()=>{
         const valorInicial = document.querySelector('.opcao_lista--inputPage').value;        
-        // console.log(valorInicial);
-        // const valorArmazenado = {'valor':[botoesInput[1].tabelas[valorInicial]]};
-        // console.log(botoesInput[1].tabelas[valorInicial][1]);
+
         setOpcoesSelecionadas(valorInicial);
         
     },[]);
 
-    const geracao_opcoes = function(){
-        
-        
+    const geracao_opcoes = function(){        
         const mudarOpcoes = function(e){
             setOpcoesSelecionadas(e.target.value);
         }
@@ -40,6 +36,7 @@ export const InputPage = function (props){
         // Renderizo as opcoes vinda pelo JSON da API
         return Object.values(botoesInput).map(plot);
     }    
+
     return (
         <div className="Content animacaoEntrada inputPage">
             <div className="input__menu">

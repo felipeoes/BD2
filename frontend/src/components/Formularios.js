@@ -1,5 +1,7 @@
 'use strict'
 import React, {useEffect, useState} from "react";
+import { ExportDataPython } from "./services/ExportDataPython";
+import axios from 'axios';
 
 export const Formularios = function (props){
     
@@ -12,7 +14,7 @@ export const Formularios = function (props){
                 labelField.push(
                     <div key={fieldName} className="input__content--linha">
                         <div className="input__content--label">{fieldName}</div>
-                        <input className="input__content--field" type={fieldTipo} />
+                        <input className={`input__content--field ${fieldName}`} type={fieldTipo} />
                     </div>
                 );
             });
@@ -23,7 +25,45 @@ export const Formularios = function (props){
     }
 
     const enviarDados = function(){
-        console.log('foi');
+
+        let nomeTabela,dadosEmJSON,msg;
+        
+        dadosEmJSON = {}
+        // Coletar dados preenchidos nos campos e colocamos no formato json
+        document.querySelectorAll(".input__content--field").forEach((obj)=>{
+            dadosEmJSON[obj.classList[1]] = obj.value;            
+        });
+
+        // verifico qual o endpoint de acordo com a tabela
+        nomeTabela = document.querySelector('.input__titulo_tabela').textContent;
+
+        // Pequeno ajuste de nomes:
+        if (nomeTabela == 'Artista'){
+            nomeTabela = 'artistas';
+        }
+        else if (nomeTabela == 'Colecao'){
+            nomeTabela = 'colecoes';
+        }
+        
+        // dou GET nos ENDPOINTS como JSON e ja faco um POST com os dados preechidos nos formularios
+        const urlServidor = 'http://127.0.0.1:8000/';
+        axios(urlServidor).then((response)=>{
+            const endPointList = response.data;
+            
+            const endPoint = endPointList[nomeTabela.toLowerCase()];
+            
+            axios.post(endPoint,dadosEmJSON).then((response)=>{
+                console.log(response);
+            }).catch((error)=>{
+                console.log(error);
+            });
+            // ExportDataPython(endPoint,dadosEmJSON).then((response)=>{
+            //     console.log(response);
+            // }).catch((error)=>{
+            //     console.log(error);
+            // });
+        });
+
     }
 
     return (

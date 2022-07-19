@@ -167,10 +167,27 @@ const dataTreeMap = [
 
 // Importacao para pageTable
 const endPointTableAll = {
-    'artistas':'http://127.0.0.1:8000/artistas/?format=json',
-    'colecoes':'http://127.0.0.1:8000/colecoes/?format=json',
-};
-
+    "artistas":"http://127.0.0.1:8000/artistas/?format=json",
+    "colecoes":"http://127.0.0.1:8000/colecoes/?format=json",
+    "emprestados":"http://127.0.0.1:8000/emprestados/?format=json",
+    "esculturas":"http://127.0.0.1:8000/esculturas/?format=json",
+    "exposicoes":"http://127.0.0.1:8000/exposicoes/?format=json",
+    "expostoem":"http://127.0.0.1:8000/expostoem/?format=json",
+    "objetosarte":"http://127.0.0.1:8000/objetosarte/?format=json",
+    "outros":"http://127.0.0.1:8000/outros/?format=json",
+    "permanentes":"http://127.0.0.1:8000/permanentes/?format=json",
+    "pinturas":"http://127.0.0.1:8000/pinturas/?format=json",
+    "listaobjetos-tipo":"http://127.0.0.1:8000/listaobjetos-tipo/?format=json",
+    "listaobjetos-categoria":"http://127.0.0.1:8000/listaobjetos-categoria/?format=json",
+    "objetos-custo-total-ano":"http://127.0.0.1:8000/objetos-custo-total-ano/?format=json",
+    "objetos-custo-total-ano-tipo":"http://127.0.0.1:8000/objetos-custo-total-ano-tipo/?format=json",
+    "objetos-custo-total-mes":"http://127.0.0.1:8000/objetos-custo-total-mes/?format=json",
+    "objetos-custo-total-mes-tipo":"http://127.0.0.1:8000/objetos-custo-total-mes-tipo/?format=json",
+    "objetos-quantidade-total-ano":"http://127.0.0.1:8000/objetos-quantidade-total-ano/?format=json",
+    "objetos-quantidade-total-mes":"http://127.0.0.1:8000/objetos-quantidade-total-mes/?format=json",
+    "esquemas":"http://127.0.0.1:8000/esquemas/?format=json",
+    "opcoes-botoes":"http://127.0.0.1:8000/opcoes-botoes/?format=json",
+    "agrupamentos":"http://127.0.0.1:8000/agrupamentos/?format=json"};
 
 
 let consultasTableAPI = {};
