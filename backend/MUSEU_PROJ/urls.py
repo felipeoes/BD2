@@ -26,7 +26,10 @@ router.register('objetos-custo-total-ano',
                 CustoTotalPorAnoObjetosViewSet, basename='CustoTotalPorAno')
 router.register('objetos-custo-total-ano-tipo',
                 CustoTotalPorAnoObjetosPorTipoViewSet, basename='CustoTotalPorAnoTipo')
+router.register('objetos-custo-total-ano-colecao', CustoTotalPorAnoObjetosPorColecaoViewset,
+                basename='CustoTotalPorAnoColecao')
 router.register('objetos-custo-total-mes',
+
                 CustoTotalPorMesObjetosViewSet, basename='CustoTotalPorMes')
 router.register('objetos-custo-total-mes-tipo',
                 CustoTotalPorMesObjetosPorTipoViewSet, basename='CustoTotalPorMesTipo')

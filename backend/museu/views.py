@@ -11,8 +11,6 @@ from .serializers import *
 
 from .create_fake_data import create_fake_data
 
-# Emprestados.objects.filter(dataemprestimo__year=datetime(2017,1,1).year).delete()
-
 # create_fake_data()
 
 
@@ -244,6 +242,50 @@ class CustoTotalPorAnoObjetosPorTipoViewSet(viewsets.ModelViewSet):
                 except:
                     listagem[ano] = {}
                     listagem[ano][tipo] = custo
+
+        todos = sum(
+            [objeto.custo for objeto in objetos if hasattr(objeto, 'data')])
+        listagem['TODOS'] = todos
+
+        return Response(listagem)
+
+
+class CustoTotalPorAnoObjetosPorColecaoViewset(viewsets.ModelViewSet):
+    queryset = ObjetosArte.objects.all()
+    serializer_class = ObjetosArteSerializer
+
+    def list(self, request):
+        objetos = gera_objetos_com_data()
+        
+        # Adiciona o campo colecao aos objetos
+        for objeto in objetos:
+            try:
+                objeto.colecao = Emprestados.objects.get(
+                    numobj4=objeto.numid).nomecolpert.nomecol
+            except:
+                pass
+            
+
+        anos = [objeto.data.year for objeto in objetos if hasattr(
+            objeto, 'data')]
+        anos = list(set(anos))
+        anos.sort()
+
+        colecoes  = Emprestados.objects.all().values_list(
+            'nomecolpert', flat=True).distinct()
+        colecoes = list(set(colecoes))
+        colecoes.sort()
+
+        listagem = {}
+        for ano in anos:
+            for colecao in colecoes:
+                custo = sum([objeto.custo for objeto in objetos if hasattr(
+                    objeto, 'data') and objeto.data.year == ano and objeto.tipoobjart == 'Emprestado' and objeto.colecao == colecao])
+                try:
+                    listagem[ano][colecao] = custo
+                except:
+                    listagem[ano] = {}
+                    listagem[ano][colecao] = custo
 
         todos = sum(
             [objeto.custo for objeto in objetos if hasattr(objeto, 'data')])
