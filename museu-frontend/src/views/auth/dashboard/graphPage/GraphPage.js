@@ -331,7 +331,7 @@ export const GraphPage = function (props) {
           <div className="graph__header__number graph__header__number--custo">
             <span className="graph__header__number--label">Custo Total</span>{" "}
             <span className="graph__header__number--value">
-              R$ {custoTotal}
+              R$ {Math.round(custoTotal)}
             </span>
           </div>
           <div className="graph__header__number graph__header__number--quantidade">
@@ -351,7 +351,7 @@ export const GraphPage = function (props) {
           />
           <LineChart
             data={[dataLinearChartFiltered, "data", "custo"]}
-            tituloGrafico="Série Temporal do Custo Mensal de Objetos Comprados"
+            tituloGrafico="Custo Mensal de Objetos Comprados"
             tituloEixoY="Custo ($)"
           />
           <BarChart
@@ -361,7 +361,7 @@ export const GraphPage = function (props) {
           />
           <LineChart
             data={[dataLinearChartFilteredQuantidade, "data", "quantidade"]}
-            tituloGrafico="Série Temporal da Quantidade Mensal de Objetos Comprados"
+            tituloGrafico="Quantidade Mensal de Objetos Comprados"
             tituloEixoY="Quantidade"
           />
           <PieChart

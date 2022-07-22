@@ -326,7 +326,7 @@ line {
 
 .graphPage {
   display: grid;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: 20% 100%;
   gap: 0.5rem;
 }
 
@@ -412,6 +412,7 @@ line {
 .titleGraph {
   background-color: #778186;
   text-align: center;
+  font-size: 1.5rem;
 }
 
 .graph__dataTreeMap {
@@ -421,6 +422,7 @@ line {
 
 .input__content {
   background-color: #778186;
+  overflow: scroll;
 }
 .input__content--linha {
   display: grid;
@@ -544,4 +546,8 @@ line {
 
 .page__description {
   font-size: 3rem;
+}
+
+.formulario__scroll{
+  overflow: scroll;
 }

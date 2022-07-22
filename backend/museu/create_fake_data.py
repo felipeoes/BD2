@@ -1,5 +1,6 @@
 import random
 from .models import *
+
 import datetime
 # Cria os dados fictícios para todos os modelos do banco de dados
 

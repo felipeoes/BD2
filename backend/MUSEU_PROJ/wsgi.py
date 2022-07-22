@@ -14,8 +14,8 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MUSEU_PROJ.settings')
 
-# project_folder = os.path.expanduser('../.')  # adjust as appropriate
-# from dotenv import load_dotenv
-# load_dotenv(os.path.join(project_folder, '.env'))
+project_folder = os.path.expanduser('../.')  # adjust as appropriate
+from dotenv import load_dotenv
+load_dotenv(os.path.join(project_folder, '.env'))
 
 application = get_wsgi_application()

@@ -177,7 +177,7 @@ export default function TestingPage() {
         <Loading loadingSize={50} />
       ) : (
        
-        <div style={{ maxHeight: 200, width: "100%" }}>
+        <div style={{ width: "100%" , height: "100%", overflow:"scroll"}}>
            <InputPage />
            </div>
         //   <LogsPageButtonsContainer>

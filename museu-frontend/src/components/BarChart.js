@@ -65,6 +65,7 @@ export const BarChart = function (dataInput) {
             .attr("width", x.bandwidth())
             .attr("y", (d) => y1(d[valorY]))
             .attr("height", (d) => y1(0) - y1(d[valorY]));
+
           
           svg
             .select(".y-axis--label")

@@ -67,7 +67,7 @@ export const Formularios = function (props){
     }
 
     return (
-        <div >
+        <div className="formulario__scroll" >
             <div className="input__titulo_tabela">{props.tabelaEscolhida}</div>            
             <div className="btn pressing btn__input--atualizar" onClick={enviarDados}>Atualizar</div>
             {gerarFields()}            
